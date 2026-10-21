@@ -43,3 +43,5 @@ On Render, create a **Web Service** connected to the `main` branch of this GitHu
 
 The Free web service can sleep after inactivity, so open its public URL a little before presenting and wait for it to wake up. Game progress and accounts are stored in each browser, not on the server: a teacher opening the site on a different device can play, but will not see your locally saved progress.
 
+For Vercel, import this GitHub repository with the **Other** framework preset. Leave the build command blank and serve the repository root (`.`). The `vercel.json` redirect sends the public root URL to `/menu/`, keeping the menu's relative artwork paths correct. Vercel serves the HTML, JavaScript, and assets as static files; it does not run `server.mjs` as a persistent server. Use the GitHub import rather than uploading the whole folder with the CLI, since the repository's source files exceed the Hobby CLI upload limit.
+
