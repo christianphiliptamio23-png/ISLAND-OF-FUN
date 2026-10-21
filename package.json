@@ -1,0 +1,1 @@
+{"name":"island-of-fun","version":"0.3.0","private":true,"type":"module","scripts":{"play":"cmd /c PLAY.cmd"}}

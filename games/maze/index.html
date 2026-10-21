@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Island of Fun – Maze</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap">
+<style>
+:root{color-scheme:dark;--bg1:#1b1446;--bg2:#5a2a7a;--ink:#fff;--gold:#ffb62e;--card:rgba(20,12,60,.65)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:#12092f;color:var(--ink);font-family:'Lilita One','Trebuchet MS',system-ui,sans-serif;-webkit-user-select:none;user-select:none;touch-action:none}
+body{background:linear-gradient(180deg,var(--bg1),var(--bg2) 60%,#d2557a);padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+button{font:inherit;color:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.scr{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;padding:max(env(safe-area-inset-top,0px),12px) 12px 12px}
+.scr.on{display:flex}
+h1{font-weight:400;text-align:center;line-height:.95;margin:8px 0 4px;text-shadow:0 3px 0 #7a1f3d}
+h1 small{display:block;font-size:22px;color:#ffe08a}
+h1 b{font-weight:400;font-size:clamp(40px,10vw,70px);background:linear-gradient(#fff7c2,#ffb62e 55%,#ff6a3d);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 #7a1f3d)}
+.sub{opacity:.85;margin-bottom:14px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(58px,92px));gap:12px;margin-top:6px}
+.lv{aspect-ratio:1;border-radius:18px;font-size:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #fff;background:linear-gradient(#ffb36b,#ff5a5f);box-shadow:0 5px 0 rgba(0,0,0,.35);line-height:1.05}
+.lv small{font-size:13px;min-height:15px}
+.lv:active{transform:translateY(3px)}
+.lv[disabled]{background:#3a3265;border-color:#6d63a6;opacity:.75;cursor:not-allowed}
+.hud{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;width:100%;max-width:760px}
+.chip{background:var(--card);border:2px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 12px;font-size:17px;white-space:nowrap}
+.btn{background:linear-gradient(#fff,#d9d3ff);color:#2a1a5e;border-radius:20px;padding:6px 14px;font-size:17px;box-shadow:0 3px 0 #8d84c7}
+.btn.g{background:linear-gradient(#9dffb0,#2fdc78);color:#06401f;box-shadow:0 3px 0 #0a6b3a}
+.wrap{flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center;margin:10px 0}
+canvas{border-radius:16px;border:4px solid #fff;box-shadow:0 10px 30px rgba(0,0,0,.5);touch-action:none;max-width:100%;max-height:100%}
+.dpad{display:none;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,56px);gap:6px}
+.dpad button{border-radius:16px;font-size:24px;background:var(--card);border:2px solid rgba(255,255,255,.4)}
+.dpad button:active{background:#ff8a3d}
+@media (pointer:coarse){.dpad{display:grid}}
+.modal{position:absolute;inset:0;background:rgba(10,6,30,.7);display:none;align-items:center;justify-content:center;z-index:5}
+.modal.on{display:flex}
+.card{background:linear-gradient(#3b2a7a,#241553);border:4px solid #fff;border-radius:26px;padding:24px 28px;text-align:center;max-width:90%;box-shadow:0 14px 40px rgba(0,0,0,.6)}
+.card h2{font-weight:400;font-size:38px;color:#ffe08a;margin-bottom:6px}
+.stars{font-size:46px;letter-spacing:4px;margin:6px 0}
+.row{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+</style></head>
+<body>
+<section class="scr on" id="menu">
+  <h1><small>Island of Fun</small><b>MAZE</b></h1>
+  <p class="sub">Reach the 🏁, grab the ⭐, and dodge the 🤡!<br>Arrow keys, WASD, swipe or tap the pad.</p>
+  <div class="grid" id="grid"></div>
+  <button class="btn" id="exit-maze-menu" style="margin-top:20px">← Return to Island</button>
+</section>
+<section class="scr" id="game">
+  <div class="hud">
+    <button class="btn" id="exit-maze-game">← Island</button>
+    <button class="btn" id="back">← Menu</button>
+    <span class="chip" id="hl">Level 1</span>
+    <span class="chip" id="ht">⏱ 0:00</span>
+    <span class="chip" id="hs">⭐ 0/3</span>
+    <span class="chip" id="hm">👣 0</span>
+    <button class="btn" id="rst">↻ Restart</button>
+  </div>
+  <div class="wrap" id="wrap"><canvas id="cv" aria-label="Maze"></canvas></div>
+  <div class="dpad"><span></span><button data-d="0" aria-label="Up">▲</button><span></span><button data-d="3" aria-label="Left">◀</button><button data-d="2" aria-label="Down">▼</button><button data-d="1" aria-label="Right">▶</button></div>
+  <div class="modal" id="win"><div class="card"><h2 id="wt">Level clear!</h2><div class="stars" id="wst"></div><div id="wi"></div>
+    <div class="row"><button class="btn" id="wm">Menu</button><button class="btn" id="wr">Replay</button><button class="btn g" id="wn">Next ▶</button></div></div></div>
+</section>
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+var params=new URLSearchParams(location.search),profile=params.get('profile')||'standalone';
+if(!/^[a-z0-9-]{1,80}$/i.test(profile))profile='standalone';
+var KEY='iof_maze.'+profile,initialUnlocked=Math.max(1,Math.min(10,Number(params.get('unlocked'))||1)),initialStars={};
+try{var incoming=JSON.parse(params.get('stars')||'{}');for(var si=0;si<10;si++)if(Number.isInteger(incoming[si])&&incoming[si]>=0&&incoming[si]<=3)initialStars[si]=incoming[si];}catch(e){}
+function exitIsland(){if(parent!==window)parent.postMessage({type:'maze:exit'},location.origin);else location.assign('/game.html?play=1');}
+var N=[7,9,11,13,15,17,19,21,23,25],EN=[0,0,0,1,1,2,2,3,3,4];
+var D=[[0,-1,1,4],[1,0,2,8],[0,1,4,1],[-1,0,8,2]];
+var save={u:initialUnlocked,s:initialStars};
+try{var sv=JSON.parse(localStorage.getItem(KEY));if(sv&&sv.s){save.u=Math.max(initialUnlocked,Math.min(10,Number(sv.u)||1));for(var si=0;si<10;si++)if(Number.isInteger(sv.s[si])&&sv.s[si]>=0&&sv.s[si]<=3)save.s[si]=Math.max(save.s[si]||0,sv.s[si]);}}catch(e){}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(save))}catch(e){}}
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gen(L){var n=N[L],r=rng(L*977+5),g=[],v=[],st=[[0,0]],i;
+  for(i=0;i<n*n;i++){g.push(0);v.push(0)}v[0]=1;
+  while(st.length){var c=st[st.length-1],x=c[0],y=c[1];
+    var o=D.filter(function(d){var a=x+d[0],b=y+d[1];return a>=0&&b>=0&&a<n&&b<n&&!v[b*n+a]});
+    if(!o.length){st.pop();continue}
+    var d=o[r()*o.length|0],a=x+d[0],b=y+d[1];g[y*n+x]|=d[2];g[b*n+a]|=d[3];v[b*n+a]=1;st.push([a,b])}
+  for(i=0;i<n*n*.06;i++){var x2=r()*n|0,y2=r()*n|0,e=D[r()*4|0],a2=x2+e[0],b2=y2+e[1];
+    if(a2>=0&&b2>=0&&a2<n&&b2<n){g[y2*n+x2]|=e[2];g[b2*n+a2]|=e[3]}}
+  return{n:n,g:g,r:r}}
+var cv=$('#cv'),ctx=cv.getContext('2d'),wrap=$('#wrap');
+var S=null,cs=10,raf=0,last=0;
+function fmt(t){t=Math.floor(t);return Math.floor(t/60)+':'+('0'+t%60).slice(-2)}
+function cell(m,r,ex){var tries=0,x,y;do{x=r()*m.n|0;y=r()*m.n|0;tries++}while(tries<300&&(ex.some(function(p){return p[0]===x&&p[1]===y})||(x+y)<m.n*0.6));return[x,y]}
+function start(L){
+  var m=gen(L),taken=[[0,0],[m.n-1,m.n-1]],stars=[],en=[],i;
+  for(i=0;i<3;i++){var c=cell(m,m.r,taken);taken.push(c);stars.push({x:c[0],y:c[1],got:0})}
+  for(i=0;i<EN[L];i++){var q=cell(m,m.r,taken);taken.push(q);en.push({x:q[0],y:q[1],px:q[0],py:q[1],dir:-1})}
+  S={L:L,n:m.n,g:m.g,x:0,y:0,px:0,py:0,stars:stars,en:en,moves:0,t:0,go:0,done:0,hit:0,dark:L>=7,lastMove:0,et:0};
+  $('#win').classList.remove('on');$('#hl').textContent='Level '+(L+1);hud();
+  show('game');resize();cancelAnimationFrame(raf);last=performance.now();raf=requestAnimationFrame(loop)}
+function hud(){$('#ht').textContent='⏱ '+fmt(S.t);$('#hs').textContent='⭐ '+S.stars.filter(function(s){return s.got}).length+'/3';$('#hm').textContent='👣 '+S.moves}
+function resize(){if(!S)return;var s=Math.floor(Math.min(wrap.clientWidth,wrap.clientHeight)-8);if(s<100)s=100;
+  cs=Math.floor(s/S.n);var px=cs*S.n,d=window.devicePixelRatio||1;
+  cv.style.width=px+'px';cv.style.height=px+'px';cv.width=px*d;cv.height=px*d;ctx.setTransform(d,0,0,d,0,0)}
+window.addEventListener('resize',resize);
+function move(d){if(!S||S.done)return;var now=performance.now();if(now-S.lastMove<85)return;
+  if(S.g[S.y*S.n+S.x]&D[d][2]){S.lastMove=now;S.x+=D[d][0];S.y+=D[d][1];S.moves++;S.go=1;
+    S.stars.forEach(function(s){if(!s.got&&s.x===S.x&&s.y===S.y)s.got=1});
+    if(S.x===S.n-1&&S.y===S.n-1)finish();hud()}}
+function finish(){S.done=1;var got=S.stars.filter(function(s){return s.got}).length;
+  if(parent!==window)parent.postMessage({type:'maze:win',level:S.L+1,stars:got,time:Math.round(S.t*1000)/1000,moves:S.moves},location.origin);
+  var best=save.s[S.L]||0;if(got>best)save.s[S.L]=got;if(S.L+2>save.u)save.u=Math.min(10,S.L+2);persist();
+  var last=S.L===9;$('#wt').textContent=last?'You beat the island! 🎉':'Level clear!';
+  $('#wst').textContent='⭐'.repeat(got)+'☆'.repeat(3-got);
+  $('#wi').textContent='Time '+fmt(S.t)+'  ·  Moves '+S.moves;$('#wn').style.display=last?'none':'';
+  var finished=S;setTimeout(function(){if(S===finished&&S.done)$('#win').classList.add('on')},350)}
+function stepEnemies(){S.en.forEach(function(e){var o=[],i;
+  for(i=0;i<4;i++)if(S.g[e.y*S.n+e.x]&D[i][2]&&(e.dir<0||i!==(e.dir+2)%4))o.push(i);
+  if(!o.length)for(i=0;i<4;i++)if(S.g[e.y*S.n+e.x]&D[i][2])o.push(i);
+  var d=o[Math.random()*o.length|0];e.dir=d;e.x+=D[d][0];e.y+=D[d][1]})}
+function loop(now){var dt=Math.min(.05,(now-last)/1000);last=now;
+  if(S.go&&!S.done){S.t+=dt;S.et+=dt;if(S.et>.45){S.et=0;stepEnemies()}}
+  var k=1-Math.pow(.0005,dt*1.2);
+  S.px+=(S.x-S.px)*k;S.py+=(S.y-S.py)*k;S.en.forEach(function(e){e.px+=(e.x-e.px)*k;e.py+=(e.y-e.py)*k});
+  if(!S.done&&S.en.some(function(e){return Math.abs(e.px-S.px)<.55&&Math.abs(e.py-S.py)<.55})){S.x=S.y=0;S.px=S.py=0;S.hit=.5}
+  if(S.hit>0)S.hit-=dt;
+  $('#ht').textContent='⏱ '+fmt(S.t);draw(now);raf=requestAnimationFrame(loop)}
+function draw(now){var n=S.n,c=cs,W=n*c,i,x,y;
+  ctx.clearRect(0,0,W,W);
+  for(y=0;y<n;y++)for(x=0;x<n;x++){ctx.fillStyle=(x+y)%2?'#3b2a7a':'#33236d';ctx.fillRect(x*c,y*c,c,c)}
+  ctx.fillStyle='rgba(120,255,160,.25)';ctx.fillRect(0,0,c,c);
+  ctx.strokeStyle='#ffb347';ctx.lineWidth=Math.max(2,c*.13);ctx.lineCap='round';ctx.shadowColor='rgba(255,140,60,.8)';ctx.shadowBlur=c*.2;
+  ctx.beginPath();
+  for(y=0;y<n;y++)for(x=0;x<n;x++){var g=S.g[y*n+x];
+    if(!(g&1)){ctx.moveTo(x*c,y*c);ctx.lineTo(x*c+c,y*c)}
+    if(!(g&8)){ctx.moveTo(x*c,y*c);ctx.lineTo(x*c,y*c+c)}
+    if(y===n-1){ctx.moveTo(x*c,W);ctx.lineTo(x*c+c,W)}
+    if(x===n-1){ctx.moveTo(W,y*c);ctx.lineTo(W,y*c+c)}}
+  ctx.stroke();ctx.shadowBlur=0;
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=(c*.62)+'px sans-serif';
+  ctx.fillText('🏁',(n-1)*c+c/2,(n-1)*c+c/2);
+  var pulse=1+Math.sin(now/260)*.08;
+  S.stars.forEach(function(s){if(!s.got){ctx.font=(c*.55*pulse)+'px sans-serif';ctx.fillText('⭐',s.x*c+c/2,s.y*c+c/2)}});
+  ctx.font=(c*.66)+'px sans-serif';
+  S.en.forEach(function(e){ctx.fillText('🤡',e.px*c+c/2,e.py*c+c/2)});
+  if(S.hit>0)ctx.globalAlpha=Math.floor(now/80)%2?.3:1;
+  ctx.fillText('🎈',S.px*c+c/2,S.py*c+c/2);ctx.globalAlpha=1;
+  if(S.dark){var cx=S.px*c+c/2,cy=S.py*c+c/2,r=c*3.4,gr=ctx.createRadialGradient(cx,cy,r*.35,cx,cy,r);
+    gr.addColorStop(0,'rgba(8,5,30,0)');gr.addColorStop(1,'rgba(8,5,30,.96)');ctx.fillStyle=gr;ctx.fillRect(0,0,W,W)}}
+function show(id){document.querySelectorAll('.scr').forEach(function(s){s.classList.toggle('on',s.id===id)})}
+function menu(){cancelAnimationFrame(raf);S=null;var gd=$('#grid');gd.innerHTML='';
+  for(var i=0;i<10;i++){(function(i){var b=document.createElement('button');b.className='lv';
+    var lk=i+1>save.u,st=save.s[i]||0;b.disabled=lk;
+    b.innerHTML=lk?'🔒':'<span>'+(i+1)+'</span><small>'+(st?'⭐'.repeat(st):'')+'</small>';
+    b.setAttribute('aria-label','Level '+(i+1)+(lk?' locked':''));b.onclick=function(){start(i)};gd.appendChild(b)})(i)}
+  show('menu')}
+$('#back').onclick=menu;$('#wm').onclick=menu;
+$('#exit-maze-menu').onclick=exitIsland;$('#exit-maze-game').onclick=exitIsland;
+$('#rst').onclick=function(){start(S.L)};$('#wr').onclick=function(){start(S.L)};
+$('#wn').onclick=function(){start(S.L+1)};
+var KM={ArrowUp:0,w:0,W:0,ArrowRight:1,d:1,D:1,ArrowDown:2,s:2,S:2,ArrowLeft:3,a:3,A:3};
+window.addEventListener('keydown',function(e){if(e.key in KM){e.preventDefault();move(KM[e.key])}});
+var tx=0,ty=0;
+cv.addEventListener('touchstart',function(e){var t=e.touches[0];tx=t.clientX;ty=t.clientY},{passive:true});
+cv.addEventListener('touchend',function(e){var t=e.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;
+  if(Math.max(Math.abs(dx),Math.abs(dy))<20)return;
+  move(Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?2:0))},{passive:true});
+document.querySelectorAll('.dpad button').forEach(function(b){var h;var d=+b.dataset.d;
+  b.addEventListener('pointerdown',function(){move(d);h=setInterval(function(){move(d)},110)});
+  ['pointerup','pointerleave','pointercancel'].forEach(function(ev){b.addEventListener(ev,function(){clearInterval(h)})})});
+menu();
+})();
+</script></body></html>

@@ -1,0 +1,9 @@
+#dialog:has(.maze-app){padding:0;background:#12092f;place-items:stretch}
+#dialog:has(.maze-app)>article{width:100vw;max-width:none;height:100dvh;max-height:none;padding:0;border:0;border-radius:0;overflow:hidden;background:#12092f;box-shadow:none}
+#dialog:has(.maze-app) #dialog-title,#dialog:has(.maze-app) #dialog-copy,#dialog:has(.maze-app) #dialog-actions{display:none}
+#dialog:has(.maze-app) #dialog-fields{display:block;height:100%;margin:0}
+.maze-app{position:relative;width:100%;height:100%;color:#fff;text-align:left}
+.maze-app iframe{display:block;width:100%;height:100%;border:0;background:#12092f}
+.maze-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.maze-status.maze-error{top:35%;left:10%;width:80%;height:auto;padding:20px;box-sizing:border-box;clip-path:none;white-space:normal;background:#3b2a7a;text-align:center}
+.maze-load-back{position:absolute;top:55%;left:50%;transform:translateX(-50%);padding:12px 20px;border:2px solid #fff;border-radius:16px;background:#3b2a7a;color:#fff}

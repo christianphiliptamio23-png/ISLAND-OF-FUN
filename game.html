@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Island of Fun</title>
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/camera.css">
+  <link rel="stylesheet" href="./games/memory/style.css">
+  <link rel="stylesheet" href="./games/chess/style.css">
+  <link rel="stylesheet" href="./games/cans/style.css">
+  <link rel="stylesheet" href="./games/pickleball/style.css">
+  <link rel="stylesheet" href="./games/basketball/style.css">
+  <link rel="stylesheet" href="./games/maze/style.css">
+  <link rel="stylesheet" href="./games/shooting-range/style.css">
+  <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <canvas id="island" aria-label="Island of Fun 3D world"></canvas>
+  <div id="fade"></div>
+  <header id="hud" hidden>
+    <button id="camera-view" type="button" aria-pressed="false" title="Switch first-person / third-person view (V)">Third person (V)</button>
+    <button id="map-button" aria-label="Island map"><img src="./assets/images/Tropical%20Island%20of%20Fun%20Game%20Map.png" alt="Tropical Island of Fun map"><span id="map-marker" aria-hidden="true">●</span></button>
+    <div>Coins <b id="coins">250</b> · Tickets <b id="tickets">0</b> <button id="hud-settings" aria-label="Pause and settings">&#9881;</button></div>
+  </header>
+  <div id="interaction" hidden></div>
+  <div id="emoji-ui" hidden><button id="emoji-button" aria-label="Choose an emoji">😀</button><div id="emoji-picker" hidden><button data-emoji="0" aria-label="Happy emoji">😀</button><button data-emoji="1" aria-label="Sparkles emoji">✨</button><button data-emoji="2" aria-label="Party emoji">🎉</button><button data-emoji="3" aria-label="Heart emoji">❤️</button></div></div>
+  <div id="controls-hint" hidden>WASD: walk · Shift: run · Space: jump · Drag: orbit · Wheel: zoom · E: explore · Esc: pause</div>
+  <div id="debug" hidden></div>
+  <section id="dialog" hidden role="dialog" aria-modal="true" aria-labelledby="dialog-title"><article><h1 id="dialog-title"></h1><p id="dialog-copy"></p><div id="dialog-fields"></div><div id="dialog-actions"></div></article></section>
+  <div id="boot-error" hidden></div>
+  <script>if(location.protocol==='file:'){const e=document.getElementById('boot-error');e.hidden=false;e.textContent='Double-click PLAY.cmd in this project folder to launch the game. No commands or installations are needed.';}</script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
