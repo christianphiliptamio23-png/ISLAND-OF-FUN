@@ -37,3 +37,9 @@ Controls: WASD / arrows to walk, Shift to run, Space to jump, drag to orbit the 
 
 `assets/` holds the active models and images. `styles/main.css` provides the playable island styles. The main menu contains its own styling.
 
+## Put the game online
+
+On Render, create a **Web Service** connected to the `main` branch of this GitHub repository. Select the **Node** runtime, set the build command to `npm install`, the start command to `npm start`, and choose a plan (the Free plan is suitable for a class preview). No environment variables are required. Set the health-check path to `/health` if prompted. Render will provide an HTTPS `onrender.com` URL when deployment completes.
+
+The Free web service can sleep after inactivity, so open its public URL a little before presenting and wait for it to wake up. Game progress and accounts are stored in each browser, not on the server: a teacher opening the site on a different device can play, but will not see your locally saved progress.
+

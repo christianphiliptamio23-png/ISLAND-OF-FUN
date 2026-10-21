@@ -4,7 +4,8 @@ import { resolve, normalize, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(new URL('.', import.meta.url)));
-const port = 8080;
+const port = Number(process.env.PORT || 8080);
+const host = process.env.HOST || (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 const types = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.gif':'image/gif','.glb':'model/gltf-binary','.fbx':'application/octet-stream','.wasm':'application/wasm'};
 
 createServer(async (req, res) => {
@@ -27,4 +28,4 @@ createServer(async (req, res) => {
     res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'});
     res.end('Not found');
   }
-}).listen(port, '127.0.0.1', () => console.log(`Island of Fun is running at http://127.0.0.1:${port}/`));
+}).listen(port, host, () => console.log(`Island of Fun is running on ${host}:${port}`));
