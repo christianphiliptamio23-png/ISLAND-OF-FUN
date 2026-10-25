@@ -1,0 +1,9 @@
+.mini-fx-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1000;contain:strict}
+.mini-fx-particle{position:absolute;width:7px;height:11px;border-radius:2px;pointer-events:none}
+.mini-fx-badge{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:1001;max-width:90vw;width:max-content;padding:10px 18px;border:1px solid #ffe7a5;border-radius:30px;background:#102c36f2;box-shadow:0 6px 22px #0005;color:#fff3ce;font:600 clamp(11px,2.5vw,14px)/1.4 system-ui,sans-serif;text-align:center;pointer-events:none;animation:mini-fx-reveal .25s ease-out}
+.mini-fx-badge[hidden]{display:none!important}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #fff4b0;outline-offset:3px}
+.screen.active,.scr.on,#scr:not([hidden])>.pn,#ov:not([hidden])>.card{animation:mini-fx-reveal .22s ease-out}
+@keyframes mini-fx-reveal{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.mini-fx-badge,.screen.active,.scr.on,#scr>.pn,#ov>.card{animation:none}}

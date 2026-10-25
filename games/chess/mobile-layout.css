@@ -1,0 +1,239 @@
+/* Keep all ten level choices and the start controls on one landscape screen. */
+@media (orientation: landscape) and (min-width: 761px) and (max-width: 1100px) and (max-height: 560px) {
+  body:has(#lvl:not([hidden])) {
+    height: 100dvh;
+    overflow: hidden;
+  }
+  body:has(#lvl:not([hidden])) header {
+    height: 42px;
+    padding: 3px 12px 0;
+  }
+  body:has(#lvl:not([hidden])) #bk {
+    min-height: 34px;
+    padding: 3px 10px;
+    font-size: 0.82rem;
+  }
+  body:has(#lvl:not([hidden])) .hr .bt {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+  body:has(#lvl:not([hidden])) #lvl {
+    padding: 0 14px 4px;
+  }
+  body:has(#lvl:not([hidden])) #lvl h2 {
+    width: min(38vw, 260px);
+    height: clamp(38px, 11dvh, 48px);
+    aspect-ratio: auto;
+    margin: -13px auto -3px;
+  }
+  body:has(#lvl:not([hidden])) #lvl > p:not(#en) {
+    width: min(64vw, 500px);
+    margin-bottom: 7px;
+    padding: 2px 8px;
+    border-width: 2px;
+    font-size: 0.9rem;
+  }
+  body:has(#lvl:not([hidden])) #lvl .gd {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px 10px;
+  }
+  body:has(#lvl:not([hidden])) #lvl .cd {
+    height: clamp(78px, 23dvh, 100px);
+    padding: 32px 3px 4px;
+    border-width: 3px;
+    font-size: 1rem;
+  }
+  body:has(#lvl:not([hidden])) #lvl .cd .ic {
+    width: 43px;
+    height: clamp(36px, 10dvh, 44px);
+    font-size: 1.7rem;
+  }
+  body:has(#lvl:not([hidden])) #lvl .cd small {
+    margin-top: 2px;
+    padding-top: 2px;
+    font-size: 0.78rem;
+  }
+  body:has(#lvl:not([hidden])) #lvl .cd .economy-level-label {
+    margin-top: 1px;
+    font-size: 9px;
+    line-height: 1.1;
+  }
+  body:has(#lvl:not([hidden])) #lvl .cd.on::after {
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+  }
+  body:has(#lvl:not([hidden])) #lvl .sr {
+    margin-top: 7px;
+    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 260px);
+  }
+  body:has(#lvl:not([hidden])) #lvl .sr > div {
+    padding: 4px 7px;
+  }
+  body:has(#lvl:not([hidden])) #lvl .sr > div > b {
+    font-size: 0.9rem;
+  }
+  body:has(#lvl:not([hidden])) #lvl .seg button {
+    min-height: 42px;
+    padding: 3px 6px;
+    font-size: 0.78rem;
+  }
+  body:has(#lvl:not([hidden])) #lvl #go {
+    min-height: 48px;
+    padding: 3px 8px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Use the short landscape viewport as a game screen, not a scaled desktop page. */
+@media (orientation: landscape) and (max-height: 560px) and (max-width: 1100px) {
+  body:has(#wrap:not([hidden])) {
+    --sz: min(calc(100dvh - 100px), calc(100vw - 300px), 430px);
+    height: 100dvh;
+    overflow: hidden;
+  }
+  body:has(#wrap:not([hidden])) header {
+    height: 34px;
+    padding: 2px 9px 0;
+    grid-template-columns: 1fr auto 1fr;
+  }
+  body:has(#wrap:not([hidden])) header .tt {
+    display: none;
+  }
+  body:has(#wrap:not([hidden])) #bk {
+    min-width: 0;
+    min-height: 30px;
+    padding: 2px 9px;
+    font-size: 0.76rem;
+  }
+  body:has(#wrap:not([hidden])) .hr .bt {
+    width: 31px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+  body:has(#wrap:not([hidden])) #wrap {
+    height: calc(100dvh - 34px);
+    flex-wrap: nowrap;
+    gap: 9px;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2px 8px 0;
+  }
+  body:has(#wrap:not([hidden])) #bd {
+    width: calc(var(--sz) + 26px);
+    flex: none;
+  }
+  body:has(#wrap:not([hidden])) .pi {
+    width: var(--sz);
+    min-height: 20px;
+    height: 20px;
+    margin: 0 0 2px 20px;
+    padding: 0 5px;
+    border-width: 1px;
+    font-size: 0.7rem;
+    gap: 5px;
+  }
+  body:has(#wrap:not([hidden])) .pi.b {
+    margin: 2px 0 0 20px;
+  }
+  body:has(#wrap:not([hidden])) .pi .av {
+    font-size: 0.95rem;
+  }
+  body:has(#wrap:not([hidden])) .pi small {
+    font-size: 0.6rem;
+  }
+  body:has(#wrap:not([hidden])) .pi .cl,
+  body:has(#wrap:not([hidden])) .pi .badge {
+    font-size: 0.68rem;
+    padding: 1px 5px;
+  }
+  body:has(#wrap:not([hidden])) .bo {
+    padding: 1px 2px 1px 0;
+    border-width: 2px;
+  }
+  body:has(#wrap:not([hidden])) .rk {
+    width: 18px;
+    font-size: 0.65rem;
+  }
+  body:has(#wrap:not([hidden])) .fl {
+    height: 11px;
+    margin-left: 20px;
+    font-size: 0.64rem;
+  }
+  body:has(#wrap:not([hidden])) .fl span {
+    padding-top: 0;
+  }
+  body:has(#wrap:not([hidden])) #side {
+    min-width: 0;
+    width: clamp(190px, 25vw, 240px);
+    max-height: calc(100dvh - 38px);
+    padding: 7px;
+    overflow-y: auto;
+    border-width: 3px;
+  }
+  body:has(#wrap:not([hidden])) #side h2 {
+    font-size: 0.97rem;
+    margin-bottom: 4px;
+  }
+  body:has(#wrap:not([hidden])) .save-label {
+    display: none;
+  }
+  body:has(#wrap:not([hidden])) #hist {
+    height: 57px;
+    max-height: 57px;
+    overflow-y: auto;
+  }
+  body:has(#wrap:not([hidden])) .nav {
+    margin: 6px 0;
+    gap: 5px;
+  }
+  body:has(#wrap:not([hidden])) .nav .bt {
+    min-height: 32px;
+    font-size: 0.9rem;
+  }
+  body:has(#wrap:not([hidden])) .captures {
+    padding: 4px 0 5px;
+    margin-bottom: 6px;
+  }
+  body:has(#wrap:not([hidden])) .captures h3 {
+    font-size: 0.84rem;
+    margin-bottom: 3px;
+  }
+  body:has(#wrap:not([hidden])) .cap {
+    min-height: 27px;
+    padding: 3px 6px;
+    font-size: 0.72rem;
+    line-height: 1.2;
+  }
+  body:has(#wrap:not([hidden])) .ac {
+    gap: 5px;
+  }
+  body:has(#wrap:not([hidden])) .ac .bt {
+    min-height: 34px;
+    font-size: 0.66rem;
+    padding: 2px;
+  }
+  body:has(#wrap:not([hidden])) .ft {
+    margin-top: 5px;
+    font-size: 0.64rem;
+  }
+  body:has(#wrap:not([hidden])) .economy-dock {
+    top: 2px;
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+  }
+  body:has(#wrap:not([hidden])) .economy-dock summary {
+    min-height: 30px;
+    padding: 2px 7px;
+  }
+  body:has(#wrap:not([hidden])) .economy-dock > div {
+    top: 100%;
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

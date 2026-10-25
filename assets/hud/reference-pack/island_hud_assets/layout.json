@@ -1,0 +1,173 @@
+{
+  "source_resolution": [
+    1672,
+    941
+  ],
+  "assets": {
+    "time_day_night_bar": {
+      "file": "time_day_night_bar.png",
+      "position": [
+        48.505,
+        1.275
+      ],
+      "size": [
+        24.462,
+        7.864
+      ]
+    },
+    "coins_counter": {
+      "file": "coins_counter.png",
+      "position": [
+        73.146,
+        1.275
+      ],
+      "size": [
+        8.792,
+        7.333
+      ]
+    },
+    "tickets_counter": {
+      "file": "tickets_counter.png",
+      "position": [
+        81.758,
+        1.275
+      ],
+      "size": [
+        9.211,
+        7.333
+      ]
+    },
+    "gems_counter": {
+      "file": "gems_counter.png",
+      "position": [
+        90.371,
+        1.275
+      ],
+      "size": [
+        8.612,
+        7.333
+      ]
+    },
+    "third_person_button": {
+      "file": "third_person_button.png",
+      "position": [
+        73.624,
+        9.139
+      ],
+      "size": [
+        13.816,
+        7.439
+      ]
+    },
+    "settings_button": {
+      "file": "settings_button.png",
+      "position": [
+        87.5,
+        9.139
+      ],
+      "size": [
+        11.483,
+        7.439
+      ]
+    },
+    "movement_joystick": {
+      "file": "movement_joystick.png",
+      "position": [
+        1.914,
+        65.675
+      ],
+      "size": [
+        15.311,
+        26.993
+      ]
+    },
+    "run_button": {
+      "file": "run_button.png",
+      "position": [
+        80.861,
+        78.746
+      ],
+      "size": [
+        8.852,
+        14.346
+      ]
+    },
+    "jump_button": {
+      "file": "jump_button.png",
+      "position": [
+        89.773,
+        78.64
+      ],
+      "size": [
+        8.792,
+        14.453
+      ]
+    },
+    "emote_button": {
+      "file": "emote_button.png",
+      "position": [
+        89.175,
+        43.996
+      ],
+      "size": [
+        9.211,
+        17.003
+      ]
+    },
+    "emote_1": {
+      "file": "emote_1.png",
+      "position": [
+        81.639,
+        24.336
+      ],
+      "size": [
+        11.543,
+        20.191
+      ]
+    },
+    "emote_2": {
+      "file": "emote_2.png",
+      "position": [
+        78.289,
+        34.857
+      ],
+      "size": [
+        10.885,
+        16.366
+      ]
+    },
+    "emote_3": {
+      "file": "emote_3.png",
+      "position": [
+        78.17,
+        50.053
+      ],
+      "size": [
+        11.005,
+        17.96
+      ]
+    },
+    "emote_4": {
+      "file": "emote_4.png",
+      "position": [
+        81.639,
+        59.724
+      ],
+      "size": [
+        11.603,
+        18.278
+      ]
+    },
+    "emote_wheel_choices": {
+      "file": "emote_wheel_choices.png",
+      "position": [
+        78.289,
+        24.442
+      ],
+      "size": [
+        14.833,
+        53.56
+      ]
+    }
+  }
+}

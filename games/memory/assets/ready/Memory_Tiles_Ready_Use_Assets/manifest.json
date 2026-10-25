@@ -1,0 +1,268 @@
+[
+  {
+    "file": "menu_buttons/play_button.png",
+    "box": [
+      583,
+      462,
+      1099,
+      571
+    ],
+    "description": "Main Play button",
+    "size": [
+      516,
+      109
+    ]
+  },
+  {
+    "file": "menu_buttons/level_select_button.png",
+    "box": [
+      580,
+      580,
+      1098,
+      692
+    ],
+    "description": "Level Select button",
+    "size": [
+      518,
+      112
+    ]
+  },
+  {
+    "file": "menu_buttons/sound_on_button.png",
+    "box": [
+      581,
+      731,
+      1098,
+      844
+    ],
+    "description": "Sound On button",
+    "size": [
+      517,
+      113
+    ]
+  },
+  {
+    "file": "menu_icons/ball_icon.png",
+    "box": [
+      593,
+      114,
+      683,
+      205
+    ],
+    "description": "Basketball icon box",
+    "size": [
+      90,
+      91
+    ]
+  },
+  {
+    "file": "menu_icons/palm_icon.png",
+    "box": [
+      691,
+      113,
+      782,
+      206
+    ],
+    "description": "Palm tree icon box",
+    "size": [
+      91,
+      93
+    ]
+  },
+  {
+    "file": "menu_icons/plane_icon.png",
+    "box": [
+      790,
+      113,
+      879,
+      205
+    ],
+    "description": "Airplane icon box",
+    "size": [
+      89,
+      92
+    ]
+  },
+  {
+    "file": "menu_icons/star_icon.png",
+    "box": [
+      888,
+      113,
+      978,
+      205
+    ],
+    "description": "Star icon box",
+    "size": [
+      90,
+      92
+    ]
+  },
+  {
+    "file": "menu_icons/shell_icon.png",
+    "box": [
+      986,
+      113,
+      1079,
+      205
+    ],
+    "description": "Shell icon box",
+    "size": [
+      93,
+      92
+    ]
+  },
+  {
+    "file": "play_ui/back_to_island_button.png",
+    "box": [
+      29,
+      25,
+      338,
+      130
+    ],
+    "description": "Back to Island button",
+    "size": [
+      309,
+      105
+    ]
+  },
+  {
+    "file": "play_ui/level_pill.png",
+    "box": [
+      447,
+      28,
+      739,
+      122
+    ],
+    "description": "Level counter",
+    "size": [
+      292,
+      94
+    ]
+  },
+  {
+    "file": "play_ui/pairs_pill.png",
+    "box": [
+      742,
+      27,
+      1023,
+      122
+    ],
+    "description": "Pairs counter",
+    "size": [
+      281,
+      95
+    ]
+  },
+  {
+    "file": "play_ui/moves_pill_left_half.png",
+    "box": [
+      1023,
+      27,
+      1218,
+      122
+    ],
+    "description": "Moves left counter left segment",
+    "size": [
+      195,
+      95
+    ]
+  },
+  {
+    "file": "play_ui/moves_left_pill.png",
+    "box": [
+      1018,
+      27,
+      1454,
+      122
+    ],
+    "description": "Moves left counter full",
+    "size": [
+      436,
+      95
+    ]
+  },
+  {
+    "file": "play_ui/pause_button.png",
+    "box": [
+      1307,
+      25,
+      1529,
+      122
+    ],
+    "description": "Pause button",
+    "size": [
+      222,
+      97
+    ]
+  },
+  {
+    "file": "play_ui/restart_button.png",
+    "box": [
+      1511,
+      25,
+      1678,
+      122
+    ],
+    "description": "Restart button",
+    "size": [
+      167,
+      97
+    ]
+  },
+  {
+    "file": "play_ui/currency_bar.png",
+    "box": [
+      0,
+      835,
+      325,
+      937
+    ],
+    "description": "Bottom left currency bar",
+    "size": [
+      325,
+      102
+    ]
+  },
+  {
+    "file": "play_ui/instruction_banner.png",
+    "box": [
+      633,
+      837,
+      1047,
+      924
+    ],
+    "description": "Bottom instruction banner",
+    "size": [
+      414,
+      87
+    ]
+  },
+  {
+    "file": "tiles/tile_back_single.png",
+    "box": [
+      492,
+      181,
+      649,
+      341
+    ],
+    "description": "Single card back tile",
+    "size": [
+      157,
+      160
+    ]
+  },
+  {
+    "file": "tiles/tile_grid_2x2_sample.png",
+    "box": [
+      489,
+      181,
+      824,
+      513
+    ],
+    "description": "2x2 card sample grid",
+    "size": [
+      335,
+      332
+    ]
+  }
+]

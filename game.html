@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Island of Fun</title>
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/camera.css">
+  <link rel="stylesheet" href="./games/memory/style.css">
+  <link rel="stylesheet" href="./games/chess/style.css">
+  <link rel="stylesheet" href="./games/cans/style.css">
+  <link rel="stylesheet" href="./games/pickleball/style.css">
+  <link rel="stylesheet" href="./games/basketball/style.css">
+  <link rel="stylesheet" href="./games/maze/style.css">
+  <link rel="stylesheet" href="./games/shooting-range/style.css">
+  <script src="./assets/vendor/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/styles/mobile.css">
+<link rel="stylesheet" href="/styles/exploration-hud.css?v=2">
+<script src="./games/shared/audio.js"></script><link rel="stylesheet" href="./games/shared/time-of-day.css"><script defer src="./games/shared/time-of-day.js"></script><link rel="stylesheet" href="./styles/emotes.css"><link rel="stylesheet" href="./styles/island-hud-art.css"></head>
+<body>
+  <canvas id="island" aria-label="Island of Fun 3D world"></canvas>
+  <div id="fade"></div>
+  <header id="hud" hidden>
+    <button id="map-button" type="button" aria-label="Open island map"><img src="./assets/images/Tropical%20Island%20of%20Fun%20Game%20Map.png" alt=""><span id="map-marker" aria-hidden="true"></span><span class="map-caption">ISLAND MAP</span></button>
+    <div class="hud-panel">
+      <div class="hud-wallet" aria-label="Wallet">
+        <span class="hud-balance coin"><small>COINS</small><b id="coins">150</b></span>
+        <span class="hud-balance ticket"><small>TICKETS</small><b id="tickets">2</b></span>
+        <span class="hud-balance token"><small>PRIZES</small><b id="tokens">0</b></span>
+      </div>
+      <div class="hud-actions">
+        <button id="camera-view" type="button" aria-pressed="false" title="Switch camera (V)">Third person</button>
+        <button id="hud-settings" type="button" aria-label="Pause and settings">Settings</button>
+      </div>
+    </div>
+  </header>
+  <div id="interaction" hidden></div>
+  <div id="controls-hint" hidden>WASD: walk · Shift: run · Space: jump · Drag: orbit · Wheel: zoom · E: explore · Esc: pause</div>
+  <div id="debug" hidden></div>
+  <section id="dialog" hidden role="dialog" aria-modal="true" aria-labelledby="dialog-title"><article><h1 id="dialog-title"></h1><p id="dialog-copy"></p><div id="dialog-fields"></div><div id="dialog-actions"></div></article></section>
+  <div id="boot-error" hidden></div>
+  <script>if(location.protocol==='file:'){const e=document.getElementById('boot-error');e.hidden=false;e.textContent='Double-click PLAY.cmd in this project folder to launch the game. No commands or installations are needed.';}</script>
+  <script src="./assets/vendor/fflate.min.js"></script><script src="./assets/vendor/FBXLoader.js"></script>
+  <script type="module" src="./src/main.js"></script>
+<script type="module" src="/src/core/Fullscreen.js"></script>
+</body>
+</html>

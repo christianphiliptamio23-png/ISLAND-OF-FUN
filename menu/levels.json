@@ -1,0 +1,42 @@
+[
+  {
+    "level": 1,
+    "approximateElo": 1100
+  },
+  {
+    "level": 2,
+    "approximateElo": 1250
+  },
+  {
+    "level": 3,
+    "approximateElo": 1400
+  },
+  {
+    "level": 4,
+    "approximateElo": 1550
+  },
+  {
+    "level": 5,
+    "approximateElo": 1700
+  },
+  {
+    "level": 6,
+    "approximateElo": 1850
+  },
+  {
+    "level": 7,
+    "approximateElo": 2000
+  },
+  {
+    "level": 8,
+    "approximateElo": 2150
+  },
+  {
+    "level": 9,
+    "approximateElo": 2300
+  },
+  {
+    "level": 10,
+    "approximateElo": 2500
+  }
+]

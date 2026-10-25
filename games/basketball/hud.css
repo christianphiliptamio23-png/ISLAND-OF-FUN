@@ -1,0 +1,63 @@
+#shot-strength-meter {
+  position: absolute;
+  left: 50%;
+  bottom: 11%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.55em;
+  width: min(30em, 60%);
+  padding: 0;
+  color: #fff7d8;
+  font-size: 1.55em;
+  font-weight: 900;
+  text-shadow:
+    0 2px 4px #032631,
+    0 0 6px #032631;
+  pointer-events: none;
+}
+
+#shot-strength-meter span {
+  font-size: 0.95em;
+  letter-spacing: 0.04em;
+}
+
+#shot-strength-meter b {
+  color: #fff1ae;
+  font-size: 1.15em;
+  font-variant-numeric: tabular-nums;
+}
+
+#strength-track {
+  position: relative;
+  width: 100%;
+  height: 0.85em;
+  overflow: hidden;
+  border: 1px solid #fff2c0;
+  border-radius: 1em;
+  background: #ffffff50;
+}
+
+#strength-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #49d6a5, #f2db60 65%, #f28a4e);
+}
+
+#hint {
+  bottom: 2%;
+  padding: 0.22em 0.85em;
+  font-size: 1.65em;
+}
+
+@media (max-height: 500px) {
+  #shot-strength-meter {
+    bottom: 11%;
+    font-size: 1.25em;
+  }
+}

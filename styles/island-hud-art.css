@@ -1,0 +1,80 @@
+/* Island-only HUD: proportional artwork, with live values and real input targets. */
+:root{--hud-u:min(1vw,1.77778vh)}
+#hud{inset:0;pointer-events:none}
+#hud[hidden],#mobile-controls[hidden],.island-emotes[hidden],.island-time-controls[hidden]{display:none!important}
+#map-button{position:absolute;left:1.5%;top:2.2vh;width:calc(18 * var(--hud-u));height:calc(11.6 * var(--hud-u));min-width:100px;min-height:70px;pointer-events:auto}
+#hud>.hud-panel{position:absolute;right:1.2%;top:1.3vh;width:calc(25 * var(--hud-u));min-width:210px;margin:0;padding:0;border:0;overflow:visible;background:none;box-shadow:none;backdrop-filter:none}
+.hud-panel:before,.hud-balance:before,.hud-balance small{display:none}
+.hud-wallet{display:flex;gap:3px;height:calc(4.2 * var(--hud-u));min-height:35px}
+.hud-balance{position:relative;flex:1;padding:0;border:0;border-radius:999px;box-shadow:none;background-color:#18271e;background-size:100% 100%;background-repeat:no-repeat;overflow:hidden}
+.hud-balance b{position:absolute;left:48%;right:10%;top:25%;height:50%;display:grid;place-items:center;background:#18271e;color:#fff9dd;font:600 clamp(12px,1.4vw,24px)/1 Arial;border-radius:4px;text-shadow:none}
+.hud-actions{display:grid;grid-template-columns:1.2fr 1fr;gap:5px;margin-top:5px}
+#camera-view,#hud-settings{position:relative;height:calc(4.1 * var(--hud-u));min-height:36px;padding:0 3px 0 32%;border:0;border-radius:999px;box-shadow:none;background-color:transparent;background-size:100% 100%;color:#fff7db;font:600 clamp(10px,1.12vw,19px) Arial;isolation:isolate}
+#camera-view{background-image:url('../assets/hud/reference-pack/island_hud_assets/third_person_button.png')}#hud-settings{background-image:url('../assets/hud/reference-pack/island_hud_assets/settings_button.png')}
+#camera-view:before,#hud-settings:before{content:'';position:absolute;inset:26% 8% 23% 32%;width:auto;height:auto;background:#18271e;z-index:-1;border:0;border-radius:0;box-shadow:none;transform:none}
+.island-time-controls{position:fixed;left:auto;right:27%;top:1.3vh;width:calc(24.5 * var(--hud-u));min-width:170px;z-index:44;color:#fff6d3}
+.island-time-controls summary{position:relative;display:block;box-sizing:border-box;width:100%;height:calc(4.45 * var(--hud-u));min-height:36px;border:0;border-radius:999px;padding:4% 20% 0;text-align:center;background:transparent url('../assets/hud/reference-pack/island_hud_assets/time_day_night_bar.png') center/100% 100% no-repeat;font:600 clamp(10px,1.1vw,19px) Arial;isolation:isolate;cursor:pointer}
+.island-time-controls summary:before{content:'';position:absolute;inset:10% 28% 55%;background:#162a29;z-index:-1}
+.island-time-controls summary::marker,.island-emotes summary::marker{content:''}.island-time-controls summary::-webkit-details-marker,.island-emotes summary::-webkit-details-marker{display:none}
+.island-time-controls>label{display:block;background:#173328;padding:12px;border:1px solid #eac971;border-radius:12px;font:13px Arial}
+#move-stick{left:2%;bottom:7%;width:calc(15 * var(--hud-u));height:calc(15 * var(--hud-u));min-width:100px;min-height:100px;max-width:255px;max-height:255px;border:0;border-radius:50%;background:transparent url('../assets/hud/reference-pack/island_hud_assets/movement_joystick.png') center/contain no-repeat;box-shadow:none;touch-action:none}
+#move-stick:before,#move-stick:after,.stick-label{display:none!important}
+#move-stick .stick-knob{width:40%;height:40%;left:30%;top:30%;margin:0;border:2px solid #ffe89b;background:radial-gradient(circle at 35% 25%,#fff7bc,#ffc353 45%,#e28a1b);box-shadow:0 3px 9px #0008;border-radius:50%}
+.touch-actions{right:2%;bottom:7%;display:grid;grid-template-columns:repeat(2,calc(8.4 * var(--hud-u)));gap:calc(.6 * var(--hud-u))}
+.touch-actions button[data-touch]{width:100%;height:calc(8 * var(--hud-u));min-width:48px;min-height:48px;border:0;border-radius:22%;padding:0;background-color:transparent;background-size:100% 100%;background-repeat:no-repeat;box-shadow:none}
+.touch-actions button[data-touch=run]{background-image:url('../assets/hud/reference-pack/island_hud_assets/run_button.png')}.touch-actions button[data-touch=jump]{background-image:url('../assets/hud/reference-pack/island_hud_assets/jump_button.png')}
+.touch-actions button[data-touch=run] span,.touch-actions button[data-touch=jump] span{visibility:hidden}
+.touch-actions button[data-touch=run][aria-pressed=true]{filter:brightness(1.3);outline:2px solid #ffe398}
+.touch-actions button[data-touch=explore]{position:fixed;left:50%;bottom:10%;transform:translateX(-50%);width:auto;min-height:38px;height:auto;padding:8px 18px;border-radius:22px;background:#173328;border:1px solid #eac971;color:#fff2c7}
+.touch-actions button[data-touch=explore]:disabled{display:none}
+#controls-hint{max-width:60vw;left:50%;transform:translateX(-50%);bottom:12px;font-size:11px}
+button:focus-visible,summary:focus-visible{outline:3px solid #fff0ab;outline-offset:3px}
+@media(max-aspect-ratio:1/1){
+ #hud>.hud-panel{min-width:190px;width:54vw}#map-button{width:27vw;height:21vw;min-width:0;min-height:0}
+ .island-time-controls{top:calc(21vw + 16px);left:2%;right:auto;width:44vw;min-width:0}
+ .island-time-controls summary{height:40px;padding-top:5px}
+ .touch-actions{grid-template-columns:repeat(2,65px);bottom:25px}.touch-actions button[data-touch]{height:65px}
+ #move-stick{width:125px;height:125px;bottom:25px}#controls-hint{display:none}
+}
+
+/* Reset legacy fixed offsets and selected-state skins. */
+#camera-view,#hud-settings{inset:auto;min-width:0;pointer-events:auto}
+#camera-view[aria-pressed=true]{background:transparent url('../assets/hud/reference-pack/island_hud_assets/third_person_button.png') center/100% 100% no-repeat;color:#fff7db}
+.island-time-controls{max-width:none}
+#move-stick .stick-knob{position:absolute;box-sizing:border-box}
+
+/* Live wallet and emotes: no screenshot labels or cropped UI textures. */
+#hud>.hud-panel{width:clamp(230px,26vw,410px);min-width:0}
+#hud .hud-wallet{display:flex;gap:6px;height:clamp(38px,4.2vw,62px)}
+#hud .hud-balance{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:9px;border:1.5px solid #e3c16d;border-radius:30px;background:linear-gradient(145deg,#344537,#13251e);box-shadow:inset 0 1px #fff5,0 3px 8px #0005;padding:0 8px;overflow:visible}
+#hud .hud-balance small{display:none}
+#hud .hud-balance b{position:static;display:block;height:auto;background:none;font:700 clamp(14px,1.5vw,23px) Arial;color:#fff3cd}
+#hud .hud-balance:before{content:'';display:block;flex:none;width:22px;height:22px;border:2px solid #ffe6a0;box-shadow:inset 0 0 0 3px #e89920;background:linear-gradient(135deg,#fff09b,#ffb323);border-radius:50%}
+#hud .hud-balance.ticket:before{width:24px;height:17px;border-radius:3px;transform:rotate(-12deg);background:#fff0cf;box-shadow:inset 0 0 0 3px #bc4935;border-color:#f2cd87}
+#hud .hud-balance.token:before{width:19px;height:19px;transform:rotate(45deg);border-radius:3px;background:linear-gradient(135deg,#e5a0ff,#9634da);box-shadow:inset 3px 3px #f2c3ff55;border-color:#d58af5}
+#camera-view,#camera-view[aria-pressed=true],#hud-settings{background:linear-gradient(145deg,#344537,#13251e);border:1.5px solid #e3c16d;padding:0 10px;color:#fff3cd;box-shadow:inset 0 1px #fff4,0 3px 8px #0005}
+#camera-view:before,#hud-settings:before{display:none}
+.island-time-controls{right:calc(clamp(230px,26vw,410px) + 2.2vw);width:clamp(180px,24vw,380px);min-width:0}
+.island-emotes{position:fixed;left:auto;right:max(16px,env(safe-area-inset-right));top:auto;bottom:calc(7vh + max(48px,8 * var(--hud-u)) + 18px);width:148px;height:auto;transform:none;z-index:43;text-align:left;pointer-events:none;font:600 14px Arial;color:#fff3cd}
+.island-emotes summary{display:flex;align-items:center;justify-content:center;box-sizing:border-box;cursor:pointer;pointer-events:auto;width:100%;height:48px;padding:0 16px;border:1.5px solid #e3c16d;border-radius:24px;background:linear-gradient(145deg,#344537,#13251e);box-shadow:inset 0 1px #fff4,0 4px 12px #0005;font:800 14px Arial;letter-spacing:.08em}
+.island-emotes summary:before{content:'\263A';font:28px Arial;margin-right:10px;color:#ffdc80}
+.island-emotes .emote-choices{position:absolute;right:0;bottom:58px;display:grid;grid-template-columns:1fr 1fr;gap:7px;box-sizing:border-box;width:244px;padding:12px;margin:0;border:1px solid #dfbe73;border-radius:18px;background:#152c24f5;box-shadow:0 10px 28px #0006;pointer-events:auto;max-height:calc(100dvh - 260px);overflow:auto}
+.island-emotes:not([open]) .emote-choices{display:none}
+.island-emotes .emote-choices strong{grid-column:1/-1;font:700 13px Arial;padding:0 2px 4px}
+.island-emotes button.emote-slot,.island-emotes button.emote-stop{position:static;display:flex;align-items:center;justify-content:center;gap:6px;box-sizing:border-box;width:auto;height:auto;min-height:46px;padding:8px;border:1px solid #8b9b67;border-radius:10px;background:linear-gradient(#354a39,#22392d);color:#fff3cd;clip-path:none;font:600 13px Arial;pointer-events:auto}
+.island-emotes button.emote-slot span{position:static;background:none;padding:0;line-height:1.2}
+.island-emotes button.emote-slot .emote-icon{font:24px Arial;color:#ffda7e}
+.island-emotes button.emote-stop{background:#653f2c;border-color:#dba267}
+.island-emotes button:hover{filter:brightness(1.2)}
+.island-emotes p{position:absolute;right:0;bottom:100%;margin:0 0 10px;width:max-content;max-width:220px;padding:6px 10px;border-radius:12px;background:#152c24ed;font-size:12px}
+.island-emotes[open] p{display:none}
+@media(max-width:700px){
+ #hud>.hud-panel{width:52vw;right:2%;top:8px}
+ #hud .hud-wallet{gap:4px;height:36px}#hud .hud-balance{gap:6px;padding:0 5px}#hud .hud-balance:before{width:16px;height:16px}#hud .hud-balance.ticket:before{width:18px;height:13px}#hud .hud-balance.token:before{width:14px;height:14px}
+ .island-time-controls{left:2%;right:auto;top:calc(21vw + 16px);width:44vw}
+ .island-emotes{bottom:108px;width:132px}.island-emotes .emote-choices{width:224px}
+}
+@media(max-height:500px) and (orientation:landscape){
+ .island-emotes{bottom:100px}.island-emotes .emote-choices{right:158px;bottom:0;width:270px;max-height:calc(100dvh - 110px)}
+ .island-time-controls{top:8px;left:auto;right:calc(clamp(230px,26vw,410px) + 2.2vw);width:24vw}
+}

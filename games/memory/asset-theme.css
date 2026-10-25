@@ -1,0 +1,59 @@
+/* Supplied artwork decorates real controls; counters and card faces stay live. */
+body{background:radial-gradient(ellipse at 50% 0,#258f98,transparent 65%),linear-gradient(160deg,#126e82,#093f50 65%,#062e3d) fixed}
+#s-title .panel{width:min(94vw,580px);background:#074e596e;border:1px solid #fff5;backdrop-filter:blur(4px);padding:22px 36px 30px}
+#s-title h1{font-size:clamp(38px,7vw,68px);color:#ffd24d;-webkit-text-stroke:1px #9d510c;text-shadow:0 4px #733906,0 7px 10px #0007;line-height:1.05}
+#s-title p{display:inline-block;padding:8px 22px;margin:8px 0 16px;background:linear-gradient(#b4722e,#774113);border:2px solid #e7af4b;border-radius:12px;color:#fff5d7}
+.deco img{width:clamp(40px,8vw,64px);height:clamp(40px,8vw,64px);object-fit:contain;border-radius:20%;filter:drop-shadow(0 3px 3px #0004)}
+#wrap{background:#064f5e38;border:2px solid #f6c76380;border-radius:24px;box-shadow:inset 0 0 28px #073f4920,0 10px 25px #0002}
+.back{background-color:#0b9b9d;background-image:url('assets/ready/Memory_Tiles_Ready_Use_Assets/tiles/tile_back_single.png');background-size:100% 120%;background-position:center top;background-repeat:no-repeat;border:3px solid #ffd449;box-shadow:inset 0 0 0 2px #fff6,0 3px 4px #0005}
+.chip{border-color:#cf9137;background:linear-gradient(#fffbe5,#fff0c3);box-shadow:0 3px 0 #79501d,0 5px 8px #0004}
+.top>[data-act="exit"]{background:linear-gradient(#b97c35,#754014);border-color:#ffe3a0;box-shadow:0 4px 0 #48260e}
+#pausebtn{background:linear-gradient(#ffbd3f,#ed880b);color:#fff;text-shadow:0 2px #a85907;box-shadow:0 4px 0 #a45a0b}
+#msg{width:auto;min-width:min(360px,80vw);padding:8px 22px;margin-top:10px;background:linear-gradient(#a66c2c,#704017);border:2px solid #d5a14d;border-radius:16px;box-shadow:0 3px 8px #0004;color:#fff7df}
+@media(max-height:540px){#s-title .panel{padding:12px 24px}.deco img{width:38px;height:38px}#s-title h1{font-size:36px}#s-title p{margin:4px;padding:4px 12px}#s-title .btn{margin-top:6px;min-height:40px;max-height:56px}
+/* Tropical reference layout: scenery stays visible behind the playable board. */
+body{background-color:#129fb5;background-image:url('assets/tropical-waterfront.png');background-position:center;background-size:cover;background-attachment:fixed}
+.screen{padding-top:max(18px,env(safe-area-inset-top))}
+#s-title{justify-content:center}
+#s-title .panel{width:min(92vw,780px);background:none;border:0;backdrop-filter:none;box-shadow:none;padding:16px 22px;margin:auto;display:flex;flex-direction:column;align-items:center}
+#s-title .deco{gap:10px;margin:0 0 20px}
+#s-title .deco img{width:clamp(42px,5.6vw,86px);height:clamp(42px,5.6vw,86px)}
+#s-title h1{font-family:'Trebuchet MS',system-ui,sans-serif;font-size:clamp(44px,6.3vw,100px);font-weight:1000;letter-spacing:-4px;white-space:nowrap;line-height:1.1;color:#ffcb2d;-webkit-text-stroke:2px #85400d;paint-order:stroke fill;text-shadow:0 -3px 0 #fff3b5,3px 0 #fff5cf,-3px 0 #fff5cf,0 7px #74380b,0 10px #fff4d5,0 14px 12px #0006;margin:0}
+#s-title p{font-size:clamp(16px,2vw,28px);padding:8px 30px;border-radius:9px;border:3px ridge #d8a357;box-shadow:0 5px 7px #0004;margin:12px 0 32px}
+#s-title .btn{width:min(100%,510px);flex-shrink:0;margin-top:14px}
+#s-title .btn.gold{height:clamp(52px,6vw,96px);font-size:clamp(20px,2.5vw,34px);border:4px solid #fff7d8;box-shadow:0 5px #c5901a,0 9px 10px #0005;background:linear-gradient(#ffe887,#ffc728);color:#743d00}
+#s-title .btn.gold::before{content:'\1F50A';margin-right:14px}
+#s-game{padding:clamp(10px,2vw,24px) clamp(10px,1.8vw,28px) 12px}
+.top{width:100%;max-width:1640px;gap:clamp(6px,1vw,16px);margin-bottom:12px;flex-wrap:nowrap}
+.top .btn{border:3px solid #fff3c1;font-size:clamp(12px,1.4vw,23px);padding:10px 18px;box-shadow:0 4px #69360d,0 6px 8px #0004;white-space:nowrap}
+.hud{gap:8px;flex:1}
+.chip{border:4px ridge #eeb45c;border-radius:999px;padding:10px 15px;font-size:clamp(12px,1.35vw,22px);color:#123c42;background:linear-gradient(#fffbe8,#fff1c9);text-shadow:none}
+.chip b{color:#123c42;font-size:1em}
+.chip:nth-child(1)::before{content:'\1F334';margin-right:8px}.chip:nth-child(2)::before{content:'\1F0CF';margin-right:8px}.chip:nth-child(3)::before{content:'\1F463';margin-right:8px}
+#wrap{width:min(100%,1100px);border:0;background:transparent;box-shadow:none;border-radius:0}
+#board{filter:drop-shadow(0 5px 3px #0005)}
+.back{background-image:radial-gradient(ellipse at 25% 20%,#55e2d754,transparent 58%),linear-gradient(135deg,#18c8c5,#00727f);border:4px solid #ffd643;box-shadow:inset 0 0 0 3px #fff8,0 2px 0 2px #553708}
+.back::before{content:'';position:absolute;inset:20%;background:#60ddd1;mask:url('assets/palm-silhouette.svg') center/contain no-repeat;-webkit-mask:url('assets/palm-silhouette.svg') center/contain no-repeat;opacity:.9}
+.back::after{content:'\273F';position:absolute;left:9%;top:6%;color:#70e3d5;font-size:calc(var(--s)*.15)}
+#msg{font-size:clamp(13px,1.35vw,22px);min-height:42px;border:3px ridge #dba14b;border-radius:12px;padding:8px 26px;margin:10px auto 0;max-width:80%;text-shadow:0 2px #492709}
+.economy-dock summary{border:3px ridge #e6b253;background:linear-gradient(#88501e,#4c270c);border-radius:999px;color:#fff8df;font-weight:800}
+@media(max-width:900px){.top{flex-wrap:wrap}.hud{order:3;flex-basis:100%}.chip{padding:6px 10px;border-width:3px}.top .row{margin-left:auto}.top .btn{padding:7px 12px}#s-title h1{letter-spacing:-2px}}
+@media(max-width:480px){#s-title .panel{padding:10px 6px}#s-title h1{font-size:44px;-webkit-text-stroke:1px #85400d}#s-title p{padding:7px 14px;margin-bottom:20px}.chip::before{display:none}#msg{max-width:95%;min-width:0;padding:7px 14px;font-size:12px}.back{border-width:2px}.hud{gap:4px}}
+@media(max-height:540px) and (min-width:640px){#s-title .panel{padding:6px;margin:auto}#s-title .deco{margin-bottom:6px}#s-title .deco img{width:38px;height:38px}#s-title h1{font-size:44px}#s-title p{margin:6px 0 8px;font-size:16px;padding:4px 20px}#s-title .btn{width:280px;height:48px;min-height:44px;margin-top:8px}#s-title .btn.gold{height:48px;font-size:20px}#s-game{padding:7px 12px}.top{margin-bottom:5px}.top .btn,.chip{font-size:12px;padding:5px 9px}.chip::before{display:none}#msg{margin-top:5px;min-height:28px;padding:4px 15px;font-size:12px}}
+
+/* Compact, code-drawn controls avoid stretched screenshot crops. */
+#s-title .panel{width:min(92vw,620px);padding:12px 20px}
+#s-title .btn,#s-title .btn.gold{width:min(76vw,320px);height:52px;min-height:44px;max-height:52px;padding:8px 20px;font-size:20px;line-height:1.2;margin-top:12px;border:3px solid #fff4d2;border-radius:999px;box-shadow:0 4px 0 #0003,0 6px 10px #0003;aspect-ratio:auto}
+#s-title .deco{gap:8px;margin-bottom:14px}
+#s-title .deco svg{width:54px;height:54px;padding:5px;border-radius:14px;border:3px solid #e6a62e;background:#fff3d1;box-shadow:0 3px 6px #0004}
+#s-title h1{font-size:clamp(36px,6vw,72px);letter-spacing:-2px}
+#s-title p{margin:10px 0 16px;font-size:clamp(14px,1.8vw,22px)}
+#s-intro .panel{width:min(90vw,340px);flex:none;padding:18px 16px;border-width:3px;border-radius:22px}
+#s-intro h2{font-size:30px;line-height:1.1;margin:0 0 6px}
+#s-intro p{font-size:13px;line-height:1.3}
+#s-intro .stats{gap:6px;margin:12px 0}
+#s-intro .stats div{padding:7px 3px;border-width:2px;border-radius:12px}
+#s-intro .stats b{font-size:23px}
+#s-intro .stats span{font-size:9px}
+#s-intro .btn{width:min(100%,250px);margin:9px auto 0;padding:8px 14px;min-height:40px;font-size:15px;border-width:2px;box-shadow:0 3px #0003}
+@media(max-height:540px){#s-title .deco svg{width:34px;height:34px;padding:3px;border-width:2px}#s-title .deco{margin-bottom:8px}#s-title h1{font-size:38px}#s-title p{font-size:14px;padding:4px 16px;margin:8px 0}#s-title .btn,#s-title .btn.gold{width:240px;height:42px;min-height:40px;max-height:42px;font-size:17px;margin-top:8px;padding:6px 12px}#s-intro{padding:8px 12px}#s-intro .panel{width:min(86vw,300px);padding:12px 14px}#s-intro h2{font-size:25px}#s-intro .stats{margin:8px 0}#s-intro .stats b{font-size:20px}#s-intro .btn{min-height:36px;padding:6px 12px;margin-top:7px}#s-intro p{font-size:12px}}

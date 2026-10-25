@@ -1,0 +1,62 @@
+[
+  {
+    "file": "backgrounds/tropical_court_with_net.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "file": "characters/opponent_front.png",
+    "width": 974,
+    "height": 1489
+  },
+  {
+    "file": "characters/player_back.png",
+    "width": 985,
+    "height": 1505
+  },
+  {
+    "file": "reference/gameplay_mockup.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "file": "ui/currency_bar.png",
+    "width": 1017,
+    "height": 250
+  },
+  {
+    "file": "ui/hit_button.png",
+    "width": 396,
+    "height": 388
+  },
+  {
+    "file": "ui/lob_button.png",
+    "width": 377,
+    "height": 385
+  },
+  {
+    "file": "ui/movement_joystick.png",
+    "width": 574,
+    "height": 552
+  },
+  {
+    "file": "ui/pickleball_ball.png",
+    "width": 256,
+    "height": 232
+  },
+  {
+    "file": "ui/run_button.png",
+    "width": 390,
+    "height": 372
+  },
+  {
+    "file": "ui/scoreboard_and_pause.png",
+    "width": 1422,
+    "height": 1019
+  },
+  {
+    "file": "ui/smash_button.png",
+    "width": 375,
+    "height": 379
+  }
+]

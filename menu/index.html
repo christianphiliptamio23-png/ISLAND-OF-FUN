@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Island of Fun – Main Menu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap">
+<style>
+:root{--sky1:#1b1446;--sky2:#5a2a7a;--sky3:#d2557a;--sky4:#ffb067;--sea1:#ff9a6b;--sea2:#2f5fb0;--sea3:#0f1f55;--sea4:#071235;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#071235;overflow:hidden}
+.scene{container-type:size;position:fixed;left:50%;top:50%;width:100vw;height:100dvh;transform:translate(-50%,-50%);overflow:hidden;background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 30%,var(--sky3) 52%,var(--sky4) 62%)}
+.sea{position:absolute;left:0;right:0;top:62%;bottom:0;background:linear-gradient(180deg,var(--sea1) 0%,var(--sea2) 14%,var(--sea3) 55%,var(--sea4) 100%)}
+.moon{position:absolute;top:9%;right:14%;width:min(11vw,110px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 36%,#fff8e0,#ffe3a6 60%,#f3c37a);box-shadow:0 0 60px 20px rgba(255,220,160,.35),0 0 160px 60px rgba(255,170,120,.18)}
+.glow{position:absolute;left:50%;top:62%;width:90vmax;height:50vmax;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(255,170,90,.55),rgba(255,120,120,.18) 55%,transparent 75%);pointer-events:none}
+.cloud{position:absolute;height:5vmin;border-radius:50%;background:rgba(255,190,200,.22);filter:blur(10px);animation:drift linear infinite}
+@keyframes drift{from{transform:translateX(-30vw)}to{transform:translateX(130vw)}}
+.island-spot{position:absolute;z-index:2;left:50%;top:63%;width:min(58%,900px);aspect-ratio:1.45;transform:translate(-50%,-62%);}
+.island-spot canvas{filter:saturate(1.3) contrast(1.02) brightness(.9) drop-shadow(0 0 14px rgba(255,160,74,.38)) drop-shadow(0 0 30px rgba(241,81,88,.22));}
+.island{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 40px rgba(255,150,80,.35));animation:bob 6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.shadow{position:absolute;left:50%;top:70%;width:min(52%,820px);height:6vmin;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(5,10,40,.6),transparent);filter:blur(6px)}
+svg.waves{position:absolute;z-index:1;pointer-events:none;left:0;width:200%;height:30%;bottom:0;animation:slide linear infinite}
+svg.waves path{vector-effect:non-scaling-stroke}
+.w1{bottom:26%;animation-duration:26s;opacity:.55}
+.w2{bottom:14%;animation-duration:19s;opacity:.7;animation-direction:reverse}
+.w3{bottom:0;animation-duration:14s}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.sparkles{position:absolute;left:0;right:0;top:62%;bottom:0;pointer-events:none}
+.sp{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffe9c0;animation:tw 3s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:.9;transform:scale(1.2)}}
+.star{position:absolute;border-radius:50%;background:#fff;animation:tw 4s ease-in-out infinite}
+.lantern{position:absolute;bottom:-10%;width:14px;height:18px;border-radius:5px 5px 7px 7px;background:linear-gradient(#ffd27a,#ff7a4d);box-shadow:0 0 18px 8px rgba(255,160,90,.45);animation:rise linear infinite}
+@keyframes rise{from{transform:translate(0,0)}50%{transform:translate(24px,-60vh)}to{transform:translate(-10px,-125vh)}}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,transparent 55%,rgba(5,8,30,.55));pointer-events:none}
+.ui{position:absolute;z-index:3;inset:0;font-family:'Lilita One','Trebuchet MS',system-ui,sans-serif;color:#fff;font-size:max(11px,2.6cqh);-webkit-user-select:none;user-select:none}
+.ui button{font:inherit;color:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ui button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.logo{position:absolute;left:50%;top:3cqh;transform:translateX(-50%);text-align:center;line-height:.95;text-shadow:0 .5cqh 0 #7a1f3d,0 1.2cqh 2cqh rgba(0,0,0,.4);white-space:nowrap}
+.logo small{display:block;font-size:5.8cqh;color:#ffe08a;letter-spacing:.2cqh}
+.logo b{font-weight:400;font-size:12.5cqh;background:linear-gradient(#fff7c2,#ffb62e 55%,#ff6a3d);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:.5cqh #8a2346;paint-order:stroke fill;filter:drop-shadow(0 .6cqh 0 #7a1f3d)}
+.player{position:absolute;left:2.5cqh;top:2.5cqh;display:flex;align-items:center;gap:1.4cqh;background:rgba(20,12,60,.55);border:.35cqh solid rgba(255,255,255,.35);border-radius:6cqh;padding:.8cqh 3cqh .8cqh .8cqh}
+.avatar{width:8cqh;height:8cqh;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,#ff9a4d);border:.4cqh solid #fff;display:grid;place-items:center;font-size:4.6cqh}
+.player .lv{font-size:2.4cqh}.player .nm{font-size:2.9cqh;line-height:1.1}
+.xp{width:13cqh;height:1.3cqh;border-radius:1cqh;background:rgba(0,0,0,.4);overflow:hidden;margin-top:.5cqh}.xp i{display:block;width:62%;height:100%;background:linear-gradient(90deg,#7df2a1,#2ed3a0)}
+.top-right{position:absolute;right:2.5cqh;top:2.5cqh;display:flex;gap:1.4cqh;align-items:center}
+.pill{display:flex;align-items:center;gap:1cqh;height:6.2cqh;padding:0 .6cqh 0 1.6cqh;border-radius:4cqh;background:rgba(20,12,60,.6);border:.3cqh solid rgba(255,255,255,.3);font-size:2.8cqh}
+.pill .plus{width:4.8cqh;height:4.8cqh;border-radius:50%;background:linear-gradient(#7df2a1,#1fb877);box-shadow:0 .3cqh 0 #0b7a4c;font-size:3.2cqh;line-height:1}
+.round{width:6.2cqh;height:6.2cqh;border-radius:50%;background:linear-gradient(#ffffff,#d9d3ff);box-shadow:0 .5cqh 0 #8d84c7;font-size:3.4cqh;display:grid;place-items:center}
+.col{position:absolute;top:19cqh;display:flex;flex-direction:column;gap:2.4cqh}
+.col.l{left:2.5cqh}.col.r{right:2.5cqh}
+.tile{position:relative;width:12cqh;display:flex;flex-direction:column;align-items:center;gap:.6cqh;background:none;transition:transform .12s}
+.tile .ic{width:11cqh;height:11cqh;border-radius:2.8cqh;display:grid;place-items:center;font-size:6cqh;border:.4cqh solid #fff;box-shadow:0 .8cqh 0 rgba(0,0,0,.35),inset 0 .6cqh 0 rgba(255,255,255,.35)}
+.tile span.t{text-shadow:0 .25cqh 0 rgba(0,0,0,.55);font-size:2.5cqh}
+.tile:active,.play:active,.round:active,.plus:active{transform:translateY(.6cqh) scale(.96)}
+.c1 .ic{background:linear-gradient(#ffb36b,#ff5a5f)}.c2 .ic{background:linear-gradient(#8ee3ff,#3a7bff)}.c3 .ic{background:linear-gradient(#d6a6ff,#8d4dff)}.c4 .ic{background:linear-gradient(#ffe27a,#ff9f1c)}.c5 .ic{background:linear-gradient(#9bf2b5,#1fb877)}.c6 .ic{background:linear-gradient(#ff9fd0,#e8478f)}
+.dot{position:absolute;top:-.8cqh;right:.4cqh;min-width:3.6cqh;height:3.6cqh;padding:0 .8cqh;border-radius:2cqh;background:#ff3b4e;border:.3cqh solid #fff;font-size:2.2cqh;display:grid;place-items:center;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.15)}}
+.play{position:absolute;left:50%;bottom:4cqh;transform:translateX(-50%);padding:1.6cqh 12cqh;border-radius:6cqh;font-size:8cqh;line-height:1;letter-spacing:.3cqh;background:linear-gradient(#9dffb0 0%,#2fdc78 45%,#13a85a 100%);border:.6cqh solid #fff!important;box-shadow:0 1.2cqh 0 #0a6b3a,0 2.4cqh 3cqh rgba(0,0,0,.45),inset 0 .8cqh 0 rgba(255,255,255,.45);text-shadow:0 .6cqh 0 #0a6b3a;animation:glowbtn 2.4s ease-in-out infinite}
+.play:active{transform:translateX(-50%) translateY(.8cqh) scale(.97)}
+@keyframes glowbtn{50%{box-shadow:0 1.2cqh 0 #0a6b3a,0 0 5cqh 1cqh rgba(120,255,160,.6),inset 0 .8cqh 0 rgba(255,255,255,.45)}}
+.small-bottom{position:absolute;bottom:4cqh;display:flex;gap:2cqh}.small-bottom.l{left:2.5cqh}.small-bottom.r{right:2.5cqh}
+.ver{position:absolute;left:50%;bottom:.8cqh;transform:translateX(-50%);font-size:1.8cqh;opacity:.6}
+.toast{position:absolute;left:50%;top:24cqh;transform:translate(-50%,-2cqh);background:rgba(20,12,60,.85);border:.3cqh solid #fff;border-radius:3cqh;padding:1.4cqh 3.4cqh;font-size:3cqh;opacity:0;pointer-events:none;transition:.25s}.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<link rel="stylesheet" href="/menu/style.css">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/styles/mobile.css">
+<script src="../games/shared/audio.js"></script></head>
+<body>
+<div id="logo-intro" role="presentation" style="position:fixed;inset:0;z-index:1000;background:#000;overflow:hidden">
+  <video id="logo-intro-video" muted playsinline preload="none" aria-label="Island of Fun introduction" style="display:block;width:100%;height:100%;object-fit:cover"></video>
+</div>
+<script>
+(function(){
+  var intro=document.getElementById('logo-intro'),video=document.getElementById('logo-intro-video'),timer;
+  function finish(){clearTimeout(timer);video.pause();intro.remove();}
+  video.onended=finish;
+  video.onerror=finish;
+  // Wait until the menu is ready and visible before starting playback.
+  function start(){
+    if(document.hidden)return;
+    document.removeEventListener('visibilitychange',start);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
+      if(!intro.isConnected)return;
+      timer=setTimeout(finish,60000);
+      video.muted=true;
+      video.src='/games/basketball/VID_20261021_044536.mp4';
+      video.play().catch(finish);
+    })});
+  }
+  addEventListener('DOMContentLoaded',function(){
+    document.addEventListener('visibilitychange',start);
+    start();
+  },{once:true});
+})();
+</script>
+<div class="scene" id="scene">
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+  <div class="glow"></div>
+  <div class="sea"></div>
+  <div class="shadow"></div>
+  <!-- Your island sprite goes here: place it inside .island-spot -->
+  <div class="island-spot" id="island"></div>
+  <svg class="waves w1" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 60 Q150 20 300 60 T600 60 T900 60 T1200 60 V120 H0Z" fill="#3a6fc4"/></svg>
+  <svg class="waves w2" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 50 Q150 90 300 50 T600 50 T900 50 T1200 50 V120 H0Z" fill="#1d3f8f"/></svg>
+  <svg class="waves w3" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 70 Q150 30 300 70 T600 70 T900 70 T1200 70 V120 H0Z" fill="#0b1a4e"/></svg>
+  <div class="sparkles" id="sparkles"></div>
+  <div id="lanterns"></div>
+  <div class="vignette"></div>
+<div class="ui">
+  <div class="player"><div class="avatar">🎪</div><div><div class="nm">Edu</div><div class="lv">Level 12</div><div class="xp"><i></i></div></div></div>
+  <h1 class="logo"><small>Island of</small><b>FUN</b></h1>
+  <div class="top-right">
+    <div class="pill">🪙 12,450 <button class="plus" data-msg="Get coins" aria-label="Get coins">+</button></div>
+    <div class="pill">🏅 85 <button class="plus" data-msg="Get tokens" aria-label="Get tokens">+</button></div>
+    <div class="pill">🎟️ 24 <button class="plus" data-msg="Get tickets" aria-label="Get tickets">+</button></div>
+    <button class="round" id="snd" aria-label="Sound on">🔊</button>
+    <button class="round" data-msg="Settings" aria-label="Settings">⚙️</button>
+  </div>
+  <div class="col l">
+    <button class="tile c1" data-msg="Daily reward"><span class="ic">🎁</span><span class="t">Daily Gift</span><i class="dot">1</i></button>
+    <button class="tile c2" data-msg="Events"><span class="ic">🎡</span><span class="t">Events</span></button>
+    <button class="tile c3" data-msg="Quests"><span class="ic">📜</span><span class="t">Quests</span><i class="dot">3</i></button>
+  </div>
+  <div class="col r" style="top:19cqh">
+    <button class="tile c4" data-msg="Shop"><span class="ic">🛍️</span><span class="t">Shop</span></button>
+    <button class="tile c5" data-msg="Friends"><span class="ic">👥</span><span class="t">Friends</span></button>
+    <button class="tile c6" data-msg="Prize collection"><span class="ic">🧸</span><span class="t">Prizes</span></button>
+  </div>
+  <div class="small-bottom l">
+    <button class="round" data-msg="Mail" aria-label="Mail">✉️</button>
+    <button class="round" data-msg="Leaderboard" aria-label="Leaderboard">🏆</button>
+  </div>
+  <button class="play" data-msg="Starting game…">PLAY</button>
+  <div class="small-bottom r">
+    <button class="round" data-msg="Help" aria-label="Help">❓</button>
+    <button class="round" data-msg="Invite friends" aria-label="Invite friends">📣</button>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+</div>
+</div>
+<script>
+(function(){
+  var r=function(a,b){return a+Math.random()*(b-a)};
+  var s=document.getElementById('stars');
+  for(var i=0;i<70;i++){var e=document.createElement('i');e.className='star';var z=r(1,2.6);
+    e.style.cssText='left:'+r(0,100)+'%;top:'+r(0,48)+'%;width:'+z+'px;height:'+z+'px;animation-delay:'+r(0,4)+'s;animation-duration:'+r(2.5,6)+'s';s.appendChild(e)}
+  var c=document.getElementById('scene');
+  for(var j=0;j<4;j++){var d=document.createElement('div');d.className='cloud';
+    d.style.cssText='top:'+r(12,45)+'%;width:'+r(18,34)+'vw;animation-duration:'+r(90,160)+'s;animation-delay:-'+r(0,120)+'s';c.insertBefore(d,c.children[2])}
+  var p=document.getElementById('sparkles');
+  for(var k=0;k<40;k++){var q=document.createElement('i');q.className='sp';
+    q.style.cssText='left:'+r(0,100)+'%;top:'+r(0,100)+'%;animation-delay:'+r(0,3)+'s;animation-duration:'+r(2,4.5)+'s';p.appendChild(q)}
+  var l=document.getElementById('lanterns');
+  for(var m=0;m<9;m++){var n=document.createElement('i');n.className='lantern';var sc=r(.6,1.3);
+    n.style.cssText='left:'+r(4,96)+'%;transform:scale('+sc+');animation-duration:'+r(28,50)+'s;animation-delay:-'+r(0,40)+'s;opacity:'+r(.6,.95);l.appendChild(n)}
+})();
+</script>
+
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+<script>
+/* Inserted 3D island only: the supplied menu markup and styles stay unchanged. */
+(function(){
+  var host=document.getElementById('island'); if(!host||!window.THREE)return;
+  var canvas=document.createElement('canvas'); canvas.setAttribute('aria-label','Rotatable Island of Fun');
+  canvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none'; host.appendChild(canvas);
+  var T=window.THREE,renderer=new T.WebGLRenderer({canvas:canvas,alpha:true,antialias:true}),scene=new T.Scene(),camera=new T.PerspectiveCamera(38,1,.1,400),group=new T.Group(),drag=false,lastX=0,targetYaw=0;
+  renderer.setPixelRatio(Math.min(devicePixelRatio,matchMedia("(any-pointer: coarse)").matches?1.25:2)); renderer.outputEncoding=T.sRGBEncoding; renderer.toneMapping=T.ACESFilmicToneMapping; renderer.toneMappingExposure=.9;
+  scene.add(new T.HemisphereLight(0xffb995,0x493047,1.6)); var sun=new T.DirectionalLight(0xffa36b,1.9); sun.position.set(20,35,20); scene.add(sun); scene.add(group); camera.position.set(0,8,57); camera.lookAt(0,0,0);camera.zoom=1.2;camera.updateProjectionMatrix();
+  new T.GLTFLoader().setDRACOLoader(new T.DRACOLoader().setDecoderPath('https://unpkg.com/three@0.128.0/examples/js/libs/draco/gltf/').setWorkerLimit(1)).load('/games/chess/amusement+island+3d+model%20(1)-compressed.glb',function(g){var model=g.scene,box=new T.Box3().setFromObject(model),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());model.position.sub(center);group.add(model);group.scale.setScalar(42/Math.max(size.x,size.y,size.z));});
+  function size(){var r=host.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()} addEventListener('resize',size);size();
+  // Let island gestures pass through the decorative menu overlay.
+  document.querySelector('.ui').style.pointerEvents='none';
+  document.querySelectorAll('.ui button').forEach(function(button){button.style.pointerEvents='auto'});
+  canvas.addEventListener('pointerdown',function(e){drag=true;lastX=e.clientX;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing'});canvas.addEventListener('pointermove',function(e){var r=canvas.getBoundingClientRect();if(drag){group.rotation.y+=(e.clientX-lastX)*.012;targetYaw=group.rotation.y;lastX=e.clientX;return}targetYaw=((e.clientX-r.left)/r.width-.5)*.72});canvas.addEventListener('pointerup',function(){drag=false;canvas.style.cursor='grab'});canvas.addEventListener('pointercancel',function(){drag=false;canvas.style.cursor='grab'});canvas.addEventListener('pointerleave',function(){if(!drag)targetYaw=0});
+  (function loop(){requestAnimationFrame(loop);if(!drag)group.rotation.y+=(targetYaw-group.rotation.y)*.055;renderer.render(scene,camera)})();
+})();
+</script>
+<script type="module" src="/src/menu/MainMenu.js"></script>
+<script type="module" src="/src/core/Fullscreen.js"></script>
+</body>
+</html>

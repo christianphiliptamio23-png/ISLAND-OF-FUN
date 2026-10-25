@@ -1,0 +1,4 @@
+#camera-view{position:fixed;left:16px;bottom:66px;padding:10px 16px;border:1px solid #9ce7e1;border-radius:16px;background:#12354ee8;color:#fff;font:700 14px Arial,sans-serif;box-shadow:0 3px 12px #0004;cursor:pointer;pointer-events:auto;z-index:12}
+#camera-view[aria-pressed="true"]{background:#087e76}
+#camera-view:focus-visible{outline:3px solid #ffe18b;outline-offset:3px}
+@media(max-width:600px){#camera-view{left:12px;bottom:78px;padding:10px 12px}}

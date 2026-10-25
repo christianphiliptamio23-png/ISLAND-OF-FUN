@@ -1,0 +1,12 @@
+.island-time-tint{position:fixed;inset:0;pointer-events:none;z-index:80;transition:background 3s ease;background:transparent}
+html[data-time-of-day="morning"] .island-time-tint{background:rgba(255,195,109,.07)}
+html[data-time-of-day="afternoon"] .island-time-tint{background:rgba(226,103,32,.15)}
+html[data-time-of-day="night"] .island-time-tint{background:rgba(10,22,73,.32)}
+.island-time-controls{position:fixed;right:max(10px,env(safe-area-inset-right));top:max(78px,env(safe-area-inset-top));z-index:120;font:600 12px/1.4 system-ui;color:#fff7db;text-align:left;max-width:240px}
+.island-time-controls summary{cursor:pointer;padding:8px 12px;border:1px solid #e5bd65;border-radius:20px;background:#153e32ed;box-shadow:0 3px 10px #0004;min-height:34px}
+.island-time-controls label{display:block;background:#153e32fa;border:1px solid #e5bd65;padding:12px;margin-top:6px;border-radius:12px}
+.island-time-controls select{display:block;width:100%;margin-top:8px;min-height:44px;border-radius:8px;background:#fff4d4;color:#173a35;font:inherit;padding:6px}
+body:has(iframe)>.island-time-tint,body:has(iframe)>.island-time-controls{display:none}
+@media(prefers-reduced-motion:reduce){.island-time-tint{transition:none}}
+
+.island-time-controls[hidden],.island-time-tint[hidden]{display:none!important}

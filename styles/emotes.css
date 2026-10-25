@@ -1,0 +1,6 @@
+.island-emotes{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:45;color:#fff4d1;font:600 14px system-ui;text-align:center}
+.island-emotes[hidden]{display:none}
+.island-emotes summary{display:inline-block;cursor:pointer;background:#163d32ef;border:2px solid #e7bb63;border-radius:22px;padding:9px 18px}
+.island-emotes div{display:flex;gap:8px;margin-top:6px;background:#163d32ef;padding:8px;border-radius:18px}
+.island-emotes button{font:inherit;min-height:44px;padding:8px 16px;border-radius:14px;background:#fff0c1;color:#15392f;border:0;cursor:pointer}
+.island-emotes p:empty{display:none}.island-emotes p{padding:6px 10px;background:#163d32ef;border-radius:10px;font-size:12px}

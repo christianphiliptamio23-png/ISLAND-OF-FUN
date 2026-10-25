@@ -1,0 +1,31 @@
+html,body{width:100%;height:100%;overscroll-behavior:none}
+canvas#island{height:100dvh}
+#mobile-controls{position:fixed;inset:0;z-index:14;pointer-events:none;user-select:none;-webkit-user-select:none}
+#move-stick{position:absolute;left:calc(env(safe-area-inset-left,0px) + 20px);bottom:calc(env(safe-area-inset-bottom,0px) + 22px);width:120px;height:120px;border:2px solid #ffffff90;border-radius:50%;background:#102f4b80;display:grid;place-items:center;pointer-events:auto;touch-action:none}
+#move-stick span{width:48px;height:48px;border-radius:50%;background:#ffe49acc;border:2px solid white;pointer-events:none}
+.touch-actions{position:absolute;right:calc(env(safe-area-inset-right,0px) + 16px);bottom:calc(env(safe-area-inset-bottom,0px) + 22px);display:grid;grid-template-columns:repeat(2,60px);gap:10px}
+.touch-actions button{min-height:54px;border:2px solid #ffe49a;border-radius:18px;background:#173f60e8;color:white;pointer-events:auto;touch-action:none;font-size:13px}
+.touch-actions button:last-child{grid-column:1/-1}
+.touch-actions button:disabled{opacity:.4}.touch-actions button[aria-pressed=true]{background:#207c55}
+#dialog article{max-height:90dvh;overflow:auto}
+@media(any-pointer:coarse){
+ #controls-hint{display:none!important}
+ #hud{top:calc(env(safe-area-inset-top,0px) + 10px);left:calc(env(safe-area-inset-left,0px) + 10px);right:calc(env(safe-area-inset-right,0px) + 10px)}
+ #hud>div{font-size:11px;padding:5px 8px;margin-top:46px}
+ #map-button{width:72px;height:58px}
+ #camera-view{left:calc(env(safe-area-inset-left,0px) + 12px);bottom:calc(env(safe-area-inset-bottom,0px) + 155px);min-height:44px;font-size:12px;padding:8px}
+ #emoji-ui{right:calc(env(safe-area-inset-right,0px) + 16px);bottom:calc(env(safe-area-inset-bottom,0px) + 155px)}
+ #interaction{bottom:calc(env(safe-area-inset-bottom,0px) + 215px);max-width:90vw;width:max-content;font-size:12px}
+ #hud-settings{min-width:44px;min-height:44px}
+}
+@media(orientation:portrait){
+ .scene{width:100vw;height:100dvh;transform:translate(-50%,-50%)}
+ .ui .logo{top:21cqh}.ui .logo small{font-size:5cqw}.ui .logo b{font-size:13cqw;-webkit-text-stroke:1px #8a2346}
+ .ui .player{top:9cqh;left:3cqw;padding:5px 10px 5px 5px;gap:6px}.ui .avatar{width:11cqw;height:11cqw;font-size:7cqw}
+ .ui .player .nm{font-size:3.5cqw;max-width:32cqw}.ui .player .lv{font-size:3cqw}.ui #menu-account{font-size:3cqw;min-height:30px}
+ .ui .top-right{top:3cqh;left:3cqw;right:3cqw;justify-content:space-between;gap:3px}
+ .ui .pill{font-size:3cqw;height:34px;padding-left:6px;gap:4px}.ui .pill .plus{width:28px;height:28px;font-size:20px}.ui .round{width:40px;height:40px;font-size:23px}
+ .ui .col{top:34cqh;gap:2cqh}.ui .col.l{left:3cqw}.ui .col.r{right:3cqw}.ui .tile{width:17cqw}.ui .tile .ic{width:14cqw;height:14cqw;font-size:8cqw;border-radius:4cqw}.ui .tile span.t{font-size:3cqw}
+ .ui .play{bottom:14cqh;font-size:9cqw;padding:12px 45px}.ui .small-bottom{bottom:5cqh;gap:6px}.ui .small-bottom.l{left:3cqw}.ui .small-bottom.r{right:3cqw}
+ .island-spot{width:90%;top:55%}.menu-panel{width:92cqw;max-height:85cqh;font-size:15px}.menu-panel h2{font-size:24px}
+}
