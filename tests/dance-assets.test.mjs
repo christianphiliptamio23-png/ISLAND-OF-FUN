@@ -35,7 +35,12 @@ test('dance playback evaluates its pose before showing and plays the full clip o
  const c=runtime(),e=Object.create(c.CharacterEmotes.prototype);let loop,posed=false,front=false;
  const visual={visible:false},action={reset(){return this},setLoop(mode,count){loop=[mode,count];return this},play(){return this}};
  const mixer={stopAllAction(){},clipAction(){return action},update(dt){assert.equal(dt,0);assert.equal(visual.visible,false);posed=true}};
- e.kind=null;e.ui={};e.status={};e.game={player:{character:{visible:true},fallback:{visible:false}},state:{is:()=>true},follow:{beginEmote(){front=true},endEmote(){}},refreshCameraButton(){}};
+ e.kind=null;e.ui={};e.status={};e.game={save:{profiles:{profile:{inventory:['emote-4']}}},player:{character:{visible:true},fallback:{visible:false}},state:{is:()=>true},follow:{beginEmote(){front=true},endEmote(){}},refreshCameraButton(){}};
  e.load=async()=>({visual,mixer,clip:{duration:23.125}});await e.play('4');
  assert.ok(posed&&front&&visual.visible);assert.equal(e.duration,23.125);assert.deepEqual(loop,[c.THREE.LoopOnce,1]);assert.equal(action.clampWhenFinished,true);
+});
+
+test('unowned paid emotes cannot bypass the shop by invoking playback',async()=>{
+ const c=runtime(),e=Object.create(c.CharacterEmotes.prototype);let loaded=false;e.status={};e.game={state:{is:()=>true},save:{profiles:{profile:{inventory:[]}}}};e.load=()=>{loaded=true};
+ for(const n of ['1','2','3','4'])await e.play(n);assert.equal(loaded,false);assert.match(e.status.textContent,/Unlock/);
 });

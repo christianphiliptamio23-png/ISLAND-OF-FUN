@@ -52,6 +52,15 @@ table{margin:.5em auto;font-size:1.2em;text-align:left}td{padding:.1em .8em}td+t
 #sb div{border:2px solid #ffffff45;background:linear-gradient(#148cde,#12458e)}
 #sb div:nth-child(3){background:linear-gradient(#ed4d38,#a52221)}
 #ps{background:linear-gradient(#b57731,#754017);border-color:#edb960}
+
+/* Larger touch targets stay together without covering the scoreboard. */
+#joy{width:clamp(112px,15vw,190px);height:clamp(112px,15vw,190px)}
+#kn{width:44%;height:44%;margin:-22%}
+#actions{grid-template-columns:repeat(2,clamp(60px,8vw,104px));gap:8px;padding:7px;right:1.5%;bottom:3%}
+#actions .cb{width:clamp(60px,8vw,104px)!important;height:clamp(60px,8vw,104px)!important}
+body .economy-dock{top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));bottom:auto}
+#bk{top:12%}
+@media(max-height:420px){#joy{width:112px;height:112px}#actions{grid-template-columns:repeat(2,64px)}#actions .cb{width:64px!important;height:64px!important}.economy-summary{padding:4px 7px;font-size:11px}}
 </style><link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script></head><body><div id="economy-loading" role="status">Loading your carnival wallet?</div>
 <div id="stage"><canvas id="c" width="1280" height="720"></canvas>
 <div id="hud" hidden><div id="sb"><div><small>YOU</small><span id="s0"></span></div><i id="v0"></i><div><small>AI</small><span id="s1"></span></div><i id="v1"></i></div>
@@ -283,8 +292,8 @@ for(const [id,file]of Object.entries({bh:'hit',bl:'lob',bs:'run',bm:'smash'})){
 }
 for(const [key,file]of Object.entries({player:'characters/player_back.png',opponent:'characters/opponent_front.png',ball:'ui/pickleball_ball.png'})){const img=new Image();img.src=artRoot+file;art[key]=img;}
 const ready=img=>img.complete&&img.naturalWidth>0;
-suppliedBg.onload=()=>{bg=suppliedBg};suppliedBg.src='./assets/tropical/pickleball_game_assets/backgrounds/tropical_court_with_net.png';
-function drawCourt(){if(ready(suppliedBg))return;poly([[-14,-26],[14,-26],[14,26],[-14,26]],'#b5712f','#6b3d16',5);g.fillStyle='#8a5522';g.fillRect(X(-14,26),Y(26),X(14,26)-X(-14,26),40);
+suppliedBg.onload=()=>{bg=suppliedBg};suppliedBg.onerror=()=>{bg=mkBg()};suppliedBg.src='./assets/tropical/pickleball_game_assets/backgrounds/tropical_court_with_net.png';
+function drawCourt(){if(bg===suppliedBg&&ready(suppliedBg))return;poly([[-14,-26],[14,-26],[14,26],[-14,26]],'#b5712f','#6b3d16',5);g.fillStyle='#8a5522';g.fillRect(X(-14,26),Y(26),X(14,26)-X(-14,26),40);
  poly([[-10,-22],[10,-22],[10,22],[-10,22]],'#1d9fc9');poly([[-10,-7],[10,-7],[10,7],[-10,7]],'#1788b3');
  g.lineJoin='round';poly([[-10,-22],[10,-22],[10,22],[-10,22]],null,'#fff',3);poly([[-10,-7],[10,-7],[10,7],[-10,7]],null,'#fff',3);
  g.strokeStyle='#fff';g.lineWidth=3;[[-22,-7],[7,22]].forEach(([a,b])=>{g.beginPath();g.moveTo(X(0,a),Y(a));g.lineTo(X(0,b),Y(b));g.stroke()})}
@@ -309,7 +318,7 @@ function person(e,shirt,ai){const s=S(e.y),x=X(e.x,e.y),y0=Y(e.y),u=s*.9,w=Math.
  if(ai){g.fillStyle='#222';[-.2,.2].forEach(o=>{g.beginPath();g.arc(x+o*s,y0-5*u,.07*s,0,7);g.fill()})}}
 function ballDraw(b){const s=S(b.y),r=.5*s;g.fillStyle='rgba(0,0,0,.3)';g.beginPath();g.ellipse(X(b.x,b.y),Y(b.y),r*(1.1-Math.min(.4,b.z*.04)),r*.38,0,0,7);g.fill();
  const x=X(b.x,b.y),y=Y(b.y,b.z);if(ready(art.ball)){g.drawImage(art.ball,x-r,y-r,r*2,r*2);return;}g.fillStyle='#ffe23a';g.strokeStyle='#b8860b';g.lineWidth=2;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.stroke();g.fillStyle='#b8860b';[[-.3,-.2],[.25,-.25],[0,.2],[.3,.25],[-.3,.3]].forEach(([a,c])=>{g.beginPath();g.arc(x+a*r,y+c*r,r*.14,0,7);g.fill()})}
-function draw(){g.drawImage(bg,0,0,1280,720);if(!M)return;drawCourt();
+function draw(){if(!bg){g.fillStyle='#126578';g.fillRect(0,0,1280,720);return;}g.drawImage(bg,0,0,1280,720);if(!M)return;drawCourt();
  if(M.state==='serve'||(M.state==='rally'&&M.ball.last===1)){const ax=M.state==='serve'?M.tsign*clamp(Math.abs(performance.now()-mouse.t<3000?aimX():5),1.5,9):aimX();g.strokeStyle='rgba(255,255,255,.55)';g.lineWidth=3;g.beginPath();g.ellipse(X(ax,-14),Y(-14),.8*S(-14),.3*S(-14),0,0,7);g.stroke()}
  const items=[[M.p[1].y,()=>person(M.p[1],'#e04b3a',true)],[0,drawNet],[M.p[0].y,()=>person(M.p[0],'#2b8ad8',false)],[M.ball.y,()=>ballDraw(M.ball)]].sort((a,b)=>a[0]-b[0]);items.forEach(i=>i[1]());
  drawEffects();
@@ -326,7 +335,7 @@ function frame(ts){raf=requestAnimationFrame(frame);const dt=Math.min(.05,Math.m
  if(M&&mode==='play'&&!paused){if(pend){const p=pend;if(act2(p.kind,p.c,true))pend=null}M.in.x=mvx();M.in.y=mvy();M.in.sp=tsp||!!(keys.ShiftLeft||keys.ShiftRight);acc+=dt;while(acc>=DT&&mode==='play'){step(M,DT);acc-=DT;if(M.ev.length)handle()}}
  draw();syncHud()}
 function fit(){const w=innerWidth,h=innerHeight,scale=Math.min(w/1280,h/720);st.style.width=1280*scale+'px';st.style.height=720*scale+'px';st.style.fontSize=12.8*scale+'px'}
-addEventListener('resize',fit);fit();bg=mkBg();cancelAnimationFrame(raf);last=performance.now();raf=requestAnimationFrame(frame);title();
+addEventListener('resize',fit);fit();cancelAnimationFrame(raf);last=performance.now();raf=requestAnimationFrame(frame);title();
 window.addEventListener('economy-ready',()=>window.GameEconomy.register({start:n=>begin(n)}));
 })();
 </script></body></html>

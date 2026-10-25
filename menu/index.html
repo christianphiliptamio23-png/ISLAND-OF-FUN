@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Island of Fun – Main Menu</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" media="print" onload="this.media='all'">
 <style>
 :root{--sky1:#1b1446;--sky2:#5a2a7a;--sky3:#d2557a;--sky4:#ffb067;--sea1:#ff9a6b;--sea2:#2f5fb0;--sea3:#0f1f55;--sea4:#071235;color-scheme:dark}
 *{box-sizing:border-box;margin:0}
@@ -130,17 +130,14 @@ svg.waves path{vector-effect:non-scaling-stroke}
   </div>
   <div class="col r" style="top:19cqh">
     <button class="tile c4" data-msg="Shop"><span class="ic">🛍️</span><span class="t">Shop</span></button>
-    <button class="tile c5" data-msg="Friends"><span class="ic">👥</span><span class="t">Friends</span></button>
     <button class="tile c6" data-msg="Prize collection"><span class="ic">🧸</span><span class="t">Prizes</span></button>
   </div>
   <div class="small-bottom l">
     <button class="round" data-msg="Mail" aria-label="Mail">✉️</button>
-    <button class="round" data-msg="Leaderboard" aria-label="Leaderboard">🏆</button>
   </div>
   <button class="play" data-msg="Starting game…">PLAY</button>
   <div class="small-bottom r">
     <button class="round" data-msg="Help" aria-label="Help">❓</button>
-    <button class="round" data-msg="Invite friends" aria-label="Invite friends">📣</button>
   </div>
   <div class="toast" id="toast" role="status"></div>
 </div>
@@ -163,9 +160,9 @@ svg.waves path{vector-effect:non-scaling-stroke}
 })();
 </script>
 
-<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+<script src="/assets/vendor/three.min.js"></script>
+<script src="/assets/vendor/GLTFLoader.js"></script>
+<script src="/assets/vendor/DRACOLoader.js"></script>
 <script>
 /* Inserted 3D island only: the supplied menu markup and styles stay unchanged. */
 (function(){
@@ -175,13 +172,13 @@ svg.waves path{vector-effect:non-scaling-stroke}
   var T=window.THREE,renderer=new T.WebGLRenderer({canvas:canvas,alpha:true,antialias:true}),scene=new T.Scene(),camera=new T.PerspectiveCamera(38,1,.1,400),group=new T.Group(),drag=false,lastX=0,targetYaw=0;
   renderer.setPixelRatio(Math.min(devicePixelRatio,matchMedia("(any-pointer: coarse)").matches?1.25:2)); renderer.outputEncoding=T.sRGBEncoding; renderer.toneMapping=T.ACESFilmicToneMapping; renderer.toneMappingExposure=.9;
   scene.add(new T.HemisphereLight(0xffb995,0x493047,1.6)); var sun=new T.DirectionalLight(0xffa36b,1.9); sun.position.set(20,35,20); scene.add(sun); scene.add(group); camera.position.set(0,8,57); camera.lookAt(0,0,0);camera.zoom=1.2;camera.updateProjectionMatrix();
-  new T.GLTFLoader().setDRACOLoader(new T.DRACOLoader().setDecoderPath('https://unpkg.com/three@0.128.0/examples/js/libs/draco/gltf/').setWorkerLimit(1)).load('/games/chess/amusement+island+3d+model%20(1)-compressed.glb',function(g){var model=g.scene,box=new T.Box3().setFromObject(model),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());model.position.sub(center);group.add(model);group.scale.setScalar(42/Math.max(size.x,size.y,size.z));});
+  new T.GLTFLoader().setDRACOLoader(new T.DRACOLoader().setDecoderPath('/assets/vendor/').setWorkerLimit(1)).load('/games/chess/amusement+island+3d+model%20(1)-compressed.glb',function(g){var model=g.scene,box=new T.Box3().setFromObject(model),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());model.position.sub(center);group.add(model);group.scale.setScalar(42/Math.max(size.x,size.y,size.z));});
   function size(){var r=host.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()} addEventListener('resize',size);size();
   // Let island gestures pass through the decorative menu overlay.
   document.querySelector('.ui').style.pointerEvents='none';
   document.querySelectorAll('.ui button').forEach(function(button){button.style.pointerEvents='auto'});
   canvas.addEventListener('pointerdown',function(e){drag=true;lastX=e.clientX;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing'});canvas.addEventListener('pointermove',function(e){var r=canvas.getBoundingClientRect();if(drag){group.rotation.y+=(e.clientX-lastX)*.012;targetYaw=group.rotation.y;lastX=e.clientX;return}targetYaw=((e.clientX-r.left)/r.width-.5)*.72});canvas.addEventListener('pointerup',function(){drag=false;canvas.style.cursor='grab'});canvas.addEventListener('pointercancel',function(){drag=false;canvas.style.cursor='grab'});canvas.addEventListener('pointerleave',function(){if(!drag)targetYaw=0});
-  (function loop(){requestAnimationFrame(loop);if(!drag)group.rotation.y+=(targetYaw-group.rotation.y)*.055;renderer.render(scene,camera)})();
+  (function loop(){requestAnimationFrame(loop);if(document.hidden)return;if(!drag)group.rotation.y+=(targetYaw-group.rotation.y)*.055;renderer.render(scene,camera)})();
 })();
 </script>
 <script type="module" src="/src/menu/MainMenu.js"></script>

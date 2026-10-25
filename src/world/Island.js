@@ -211,14 +211,14 @@ export class Island {
     this.groundRay.set(new T.Vector3(x,60,z),new T.Vector3(0,-1,0));this.groundRay.far=120;
     return this.groundRay.intersectObject(this.terrainModel,true)[0]||null;
   }
-  walkSurfaceAt(x,z,footY,maxRise=.35) {
+  walkSurfaceAt(x,z,footY,maxRise=.85) {
     if(!this.terrainModel)return null;
     this.groundRay.set(new T.Vector3(x,60,z),new T.Vector3(0,-1,0));this.groundRay.far=120;
     // The terrain GLB also contains trees and plants. Ignore their upper faces
     // instead of snapping the player's feet onto the first (highest) hit.
     let nearest=null;
     for(const hit of this.groundRay.intersectObject(this.terrainModel,true)){
-      if(hit.point.y>footY+maxRise||(hit.face&&hit.face.normal.y<=.55))continue;
+      if(hit.point.y>footY+maxRise||(hit.face&&hit.face.normal.y<=.3))continue;
       if(!nearest||Math.abs(hit.point.y-footY)<Math.abs(nearest.point.y-footY))nearest=hit;
     }
     // The authored entrance bridge is visibly broken here, with no upward
@@ -283,14 +283,11 @@ export class Island {
     for(let i=0;i<10;i++){const a=i*Math.PI/5;const spoke=mesh(ferris,new T.BoxGeometry(.07,8,.07),0xe6c189);spoke.rotation.z=a;mesh(ferris,new T.BoxGeometry(.8,.8,.8),i%2?0xd37c9c:0x6ba8c7,Math.sin(a)*4,Math.cos(a)*4,0);}
   }
   buildSky(scene) {
-    const geometry=new T.SphereGeometry(160,24,16);const mat=new T.ShaderMaterial({side:T.BackSide,uniforms:{},vertexShader:'varying vec3 v; void main(){v=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'varying vec3 v;void main(){float h=normalize(v).y;vec3 col=mix(vec3(.72,.35,.39),vec3(.055,.09,.25),smoothstep(-.05,.6,h));gl_FragColor=vec4(col,1.);}'});scene.add(new T.Mesh(geometry,mat));
-    const stars=[];for(let i=0;i<180;i++){const a=i*2.4,h=35+(i%37)*2;stars.push(Math.cos(a)*90,h,Math.sin(a)*90);}const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(stars,3));scene.add(new T.Points(g,new T.PointsMaterial({size:.25,color:0xf6dcdd})));
-    const moon=mesh(scene,new T.SphereGeometry(3,16,12),0xffe5ad,-50,60,-75);moon.material=new T.MeshBasicMaterial({color:0xffe5ad});const cover=mesh(scene,new T.SphereGeometry(2.8,16,12),0x111a40,-48.7,60.5,-73.5);cover.material=new T.MeshBasicMaterial({color:0x111a40});
-    this.clouds=[];for(let i=0;i<7;i++){const cloud=new T.Group();for(let j=0;j<4;j++){const puff=mesh(cloud,new T.SphereGeometry(2.5,8,6),0xb39cae,j*2,0,0);puff.scale.set(1,.4,.65);}cloud.position.set(-60+i*18,27+i%3*3,-45);scene.add(cloud);this.clouds.push(cloud);}
+    this.clouds=[];for(let i=0;i<7;i++){const cloud=new T.Group();for(let j=0;j<4;j++){const puff=mesh(cloud,new T.SphereGeometry(2.5,8,6),0xf2e9d7,j*2,0,0);puff.scale.set(1,.4,.65);}cloud.position.set(-60+i*18,27+i%3*3,-45);scene.add(cloud);this.clouds.push(cloud);}
   }
   // Explore all land freely, with collisions around solid attractions.
   walkable(x,z,footY) {return this.terrainModel?!!(Number.isFinite(footY)?this.walkSurfaceAt(x,z,footY):this.terrainHitAt(x,z)):true;}
-  blocked(x,z,footY) {return !this.walkable(x,z,footY)||this.colliders.some(b=>x>b.minX-.38&&x<b.maxX+.38&&z>b.minZ-.38&&z<b.maxZ+.38);}
+  blocked(x,z,footY) {return !this.walkable(x,z,footY)||this.colliders.some(b=>x>b.minX-.22&&x<b.maxX+.22&&z>b.minZ-.22&&z<b.maxZ+.22);}
   update(time,dt) {
     const p=this.water.geometry.attributes.position;
     for(let i=0;i<p.count;i++)p.setZ(i,Math.sin(this.waveBase[i*3]*.22+time)*.09+Math.cos(this.waveBase[i*3+1]*.18+time*.7)*.07);

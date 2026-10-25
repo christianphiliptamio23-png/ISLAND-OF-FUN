@@ -78,3 +78,5 @@ button:focus-visible,summary:focus-visible{outline:3px solid #fff0ab;outline-off
  .island-emotes{bottom:100px}.island-emotes .emote-choices{right:158px;bottom:0;width:270px;max-height:calc(100dvh - 110px)}
  .island-time-controls{top:8px;left:auto;right:calc(clamp(230px,26vw,410px) + 2.2vw);width:24vw}
 }
+
+.emote-slot small{display:block;font-size:11px;margin-top:4px}.emote-slot:disabled{opacity:.55;cursor:not-allowed}

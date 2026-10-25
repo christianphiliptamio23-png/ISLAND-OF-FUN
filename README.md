@@ -1,5 +1,8 @@
 # Island of Fun
 
+Latest release details, web-only updates and deployment instructions: [RELEASE.md](./RELEASE.md).
+
+
 Camera: click the **Third person / First person (V)** button or press **V** while exploring. Drag to look around in either view. First-person hides your character and follows eye height; third-person shows your character and supports wheel zoom. Your camera choice saves with your profile.
 
 ## Folder guide
@@ -29,7 +32,7 @@ Memory Tiles is connected to the **MEMORY TILES** booth: approach it and press *
 
 Chess is connected to the **CHESS VS AI** booth. It opens `games/chess/index.html` with ten selectable levels and a built-in opponent. Its castle background and illustrated UI source sheets are in `games/chess/assets/`. Return to Island closes the game and resumes exploration. The chess game saves its settings in this browser.
 
-Double-click **PLAY.cmd** to start or reopen the game at http://localhost:8080. The server also starts automatically when you sign in to Windows, so closing VS Code does not stop it. If Windows has just restarted and the page is still loading, use **PLAY.cmd**. Node.js must be installed; `npm install`, Vite, and Stockfish are not required. Internet access is currently needed for the existing Three.js scripts and menu font.
+Double-click **PLAY.cmd** to start or reopen the game at http://localhost:8080. The server also starts automatically when you sign in to Windows, so closing VS Code does not stop it. If Windows has just restarted and the page is still loading, use **PLAY.cmd**. Node.js must be installed; `npm install`, Vite, and Stockfish are not required. The 3D engine and its loaders are included locally. Internet is needed for hosted resources and the optional menu font.
 
 The opening screen is `menu/index.html`. Its Play button opens `game.html`, which loads `src/main.js`.
 
@@ -51,7 +54,7 @@ Use the left thumb joystick to walk and drag the open island view to move the ca
 
 ## Economy and progression
 
-See [ECONOMY.md](./ECONOMY.md) for currency balances, paid unlocks, seven retry adapters, the shop, quests, daily rewards, achievements, save migration and backend limitations. Gems have been replaced by Prize Tokens. Gift sending is disabled until a multiplayer server is connected.
+See [ECONOMY.md](./ECONOMY.md) for currency balances, paid unlocks, seven retry adapters, the shop, quests, daily rewards, achievements, save migration and backend limitations. Gems have been replaced by Prize Tokens. Gift sending remains disabled; this game does not include multiplayer.
 
 ## Final island HUD and emotes
 

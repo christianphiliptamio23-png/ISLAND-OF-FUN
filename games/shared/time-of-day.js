@@ -1,6 +1,6 @@
 (()=>{
  const KEY='island-of-fun-time-of-day-v1',STEP=300000,PHASES=['morning','day','afternoon','night'];
- const names={morning:'Morning',day:'Daytime',afternoon:'Afternoon',night:'Night'};
+ const names={morning:'Morning',day:'Daytime \u2600\ufe0f',afternoon:'Afternoon',night:'Nighttime \u263e'};
  let state={mode:'auto',epoch:Date.now()},current='',panel,select,label,tint,exploring=false;
  function read(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&['auto',...PHASES].includes(s.mode)&&Number.isFinite(s.epoch))state=s;}catch{}}
  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch{}}

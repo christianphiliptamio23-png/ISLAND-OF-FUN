@@ -194,8 +194,14 @@ function ring(p,o,s){if(o.ay){arrow(g,p.x,p.y-RR-28,-1);arrow(g,p.x,p.y+RR+28,1)
  if(s===2){g.globalAlpha=.4+.3*Math.sin(L.T*6);g.strokeStyle='#fff';g.lineWidth=24;g.beginPath();g.arc(p.x,p.y,RR,0,7);g.stroke();g.globalAlpha=1}
  g.lineWidth=15;g.strokeStyle=s===1?'#1f8f4a':'#c98a00';g.beginPath();g.arc(p.x,p.y,RR,0,7);g.stroke();
  g.lineWidth=8;g.strokeStyle=s===1?'#3ecf6a':'#ffd23f';g.stroke()}
-function ball(x,y,r){g.save();g.translate(x,y);g.rotate(r);g.fillStyle='#ff8a1f';g.strokeStyle='#3a1c0a';g.lineWidth=3;g.beginPath();g.arc(0,0,R,0,7);g.fill();g.stroke();
- g.beginPath();g.moveTo(-R,0);g.lineTo(R,0);g.moveTo(0,-R);g.lineTo(0,R);g.arc(-R*1.3,0,R*.95,-.8,.8);g.moveTo(R*.62,-R*.7);g.arc(R*1.3,0,R*.95,Math.PI-.8,Math.PI+.8);g.stroke();g.restore()}
+function ball(x,y,r){
+ g.save();g.translate(x,y);g.rotate(r);
+ const shade=g.createRadialGradient(-R*.35,-R*.4,R*.08,0,0,R);shade.addColorStop(0,'#ffd088');shade.addColorStop(.42,'#f99032');shade.addColorStop(1,'#a83e16');
+ g.fillStyle=shade;g.strokeStyle='#512813';g.lineWidth=2.5;g.beginPath();g.arc(0,0,R,0,Math.PI*2);g.fill();g.stroke();
+ g.save();g.clip();g.fillStyle='#813a1838';for(let row=-5;row<=5;row++)for(let col=-5;col<=5;col++){g.beginPath();g.arc(col*R/5+(row%2)*R/10,row*R/5,.65,0,Math.PI*2);g.fill();}
+ g.strokeStyle='#552918';g.lineWidth=1.8;g.beginPath();g.moveTo(-R,0);g.lineTo(R,0);g.moveTo(0,-R);g.lineTo(0,R);g.moveTo(-R*.62,-R);g.bezierCurveTo(R*.18,-R*.35,R*.18,R*.35,-R*.62,R);g.moveTo(R*.62,-R);g.bezierCurveTo(-R*.18,-R*.35,-R*.18,R*.35,R*.62,R);g.stroke();g.restore();
+ g.strokeStyle='#ffe6b46b';g.lineWidth=1.5;g.beginPath();g.arc(-1,-1,R*.85,Math.PI*1.1,Math.PI*1.7);g.stroke();g.restore();
+}
 function coral(w,h){g.fillStyle='#ff6b6b';g.strokeStyle='#b93c3c';g.lineWidth=4;rr(g,-w/2,-h/2,w,h,10);g.fill();g.stroke();g.fillStyle='rgba(255,255,255,.3)';rr(g,-w/2+6,-h/2+6,7,h-12,4);g.fill()}
 function shooter(hx=START.x,hy=START.y){
  const x=START.x-65,y=GY;
@@ -207,11 +213,11 @@ function shooter(hx=START.x,hy=START.y){
  g.fillStyle='#15374c';for(const dx of [-12,13]){rr(g,x+dx-7,y-13,27,13,5);g.fill();}
  g.fillStyle='#f5ead5';g.fillRect(x-19,y-4,27,4);g.fillRect(x+6,y-4,27,4);
  g.fillStyle='#163f65';rr(g,x-22,y-54,46,20,5);g.fill();g.strokeStyle='#ffe085';g.lineWidth=3;g.beginPath();g.moveTo(x+1,y-52);g.lineTo(x+1,y-35);g.stroke();
- g.fillStyle='#f36c46';g.strokeStyle='#a73d30';g.lineWidth=2;rr(g,x-23,y-113,48,63,10);g.fill();g.stroke();
- g.fillStyle='#ffe697';g.font='bold 24px Trebuchet MS';g.textAlign='center';g.fillText('23',x+1,y-72);
+ const jersey=g.createLinearGradient(x-23,0,x+25,0);jersey.addColorStop(0,'#117778');jersey.addColorStop(.5,'#32bbb0');jersey.addColorStop(1,'#105457');g.fillStyle=jersey;g.strokeStyle='#123e3b';g.lineWidth=2;rr(g,x-23,y-113,48,63,10);g.fill();g.stroke();
+ g.fillStyle='#ffe697';g.font='bold 24px Trebuchet MS';g.textAlign='center';g.fillText('23',x+1,y-72);g.strokeStyle='#ffe697';g.lineWidth=3;g.beginPath();g.moveTo(x-18,y-109);g.lineTo(x-18,y-58);g.moveTo(x+20,y-109);g.lineTo(x+20,y-58);g.stroke();g.fillStyle='#fff1c8';g.font='bold 8px Trebuchet MS';g.fillText('ISLAND',x+1,y-96);
  g.fillStyle='#c88b61';g.fillRect(x-7,y-124,17,16);
  g.fillStyle='#e7ac7c';g.strokeStyle='#814b37';g.lineWidth=2;g.beginPath();g.arc(x,y-138,21,0,Math.PI*2);g.fill();g.stroke();
- g.fillStyle='#3d2d30';g.beginPath();g.arc(x-2,y-144,21,Math.PI,Math.PI*2+.4);g.fill();
+ g.fillStyle='#3d2d30';g.beginPath();g.arc(x-2,y-144,21,Math.PI,Math.PI*2+.4);g.fill();for(let i=0;i<5;i++){g.beginPath();g.arc(x-17+i*8,y-153-Math.sin(i)*5,7,0,Math.PI*2);g.fill();}g.strokeStyle='#ffe697';g.lineWidth=5;g.beginPath();g.moveTo(x-18,y-145);g.quadraticCurveTo(x,y-151,x+18,y-145);g.stroke();
  g.fillStyle='#e7ac7c';g.beginPath();g.arc(x+20,y-137,5,0,Math.PI*2);g.fill();g.fillStyle='#34282c';g.beginPath();g.arc(x+10,y-140,2.2,0,Math.PI*2);g.fill();
  // Hands follow the held ball; the shooting pose follows through after release.
  if(L.ball){hx=x+44;hy=L.ball.t<.45?y-155:y-85;}
@@ -227,6 +233,7 @@ function basketPost(bx,by){
  g.fillStyle='#35596a';rr(g,x-36,GY-10,76,14,6);g.fill();g.strokeStyle='#183846';g.lineWidth=2;g.stroke();g.restore();
 }
 function draw(){
+ if(!bg){g.fillStyle="#126578";g.fillRect(0,0,W,H);return;}
  g.drawImage(bg,0,0);if(!L)return;const d=L.d,T=L.T;
  (d.rings||[]).forEach((o,i)=>ring(pos(o,T),o,i<L.ring?1:i===L.ring?2:0));
  for(const o of d.bars||[]){const p=pos(o,T);g.save();g.translate(p.x,p.y);coral(o.w,o.h);g.restore()}
@@ -263,13 +270,14 @@ function frame(ts){raf=requestAnimationFrame(frame);const dt=Math.min(.05,Math.m
   for(const t of tx){t.y-=40*dt;t.l-=dt}tx=tx.filter(t=>t.l>0)}
  draw();syncHud()}
 function fit(){st.style.width=innerWidth+'px';st.style.height=innerHeight+'px';st.style.fontSize=Math.min(innerWidth/100,innerHeight/56.25)+'px'}
-addEventListener('resize',fit);fit();bg=mkBg();
+addEventListener('resize',fit);fit();
 // Replace only the painted backdrop; all gameplay coordinates stay unchanged.
 const backgroundImage=new Image();
 backgroundImage.onload=()=>{
  const replacement=document.createElement('canvas');replacement.width=W;replacement.height=H;
  replacement.getContext('2d').drawImage(backgroundImage,0,0,W,H);bg=replacement;
 };
+backgroundImage.onerror=()=>{bg=mkBg()};
 backgroundImage.src='./assets/basketball%20shootbg.png';
 cancelAnimationFrame(raf);last=performance.now();raf=requestAnimationFrame(frame);
 title();

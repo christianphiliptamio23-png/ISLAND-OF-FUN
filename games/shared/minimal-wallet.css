@@ -38,7 +38,9 @@
 .economy-toast {
   position: fixed;
   left: 50%;
-  bottom: 19%;
+  top: 12%;
+  bottom: auto;
+  height: auto;
   z-index: 120;
   max-width: 80vw;
   margin: 0;

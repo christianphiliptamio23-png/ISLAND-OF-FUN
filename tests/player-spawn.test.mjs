@@ -103,3 +103,11 @@ test('entrance remains hidden until spawn succeeds, then camera uses bridge heig
   ready=true;g.transitionFrame(.016);assert.equal(g.transition.switched,true);assert.equal(p.group.visible,false);assert.equal(g.camera.target.y,3.41);
   g.transitionFrame(2);assert.equal(state,'EXPLORATION');assert.equal(p.group.visible,true);assert.equal(p.currentAction.paused,true);assert.equal(g.camera.position.y,5.41);
 });
+
+test('low stones and sloped paths are walkable without opening water or tall obstacles',()=>{
+ const island=Object.create(context.Island.prototype);island.terrainModel={};island.colliders=[];
+ let hits=[{point:{y:.8},face:{normal:{y:.4}}}];island.groundRay={set(){},intersectObject(){return hits}};
+ assert.equal(island.walkSurfaceAt(3,4,.2).point.y,.8);assert.equal(island.blocked(3,4,.2),false);
+ hits=[{point:{y:3},face:{normal:{y:1}}}];assert.equal(island.blocked(3,4,.2),true);
+ hits=[];assert.equal(island.blocked(3,4,.2),true);
+});
