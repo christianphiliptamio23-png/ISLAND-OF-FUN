@@ -55,7 +55,12 @@ export class Game {
     if(tr.switched){const t=T.MathUtils.clamp((tr.elapsed-.6)/2,0,1),e=t*t*(3-2*t);this.camera.position.lerpVectors(tr.start,tr.spawn.clone().add(new T.Vector3(0,4,7)),e);this.camera.lookAt(tr.target);this.player.animateCharacter(dt,this.time);this.player.group.visible=t>.3;if(t===1){this.state.set('EXPLORATION');$('#hud').hidden=false;$('#controls-hint').hidden=false;this.input.clearMotion();}}
   }
   pause(){this.state.set('PAUSED');this.input.keys.clear();this.dialog('Island paused','Take a breather.',[['RESUME',()=>this.resume()],['SETTINGS',()=>this.settings()],['CONTROLS',()=>this.dialog('Controls','WASD / arrows: walk · Shift: run · Space: jump · Drag: orbit · Wheel: zoom · E: explore attraction · Esc: pause',[['BACK',()=>this.pause()]])],['RETURN TO MAIN MENU',()=>this.menu()]]);}
-  resume(){this.dismiss();this.state.set('EXPLORATION');this.input.clearMotion();}
+  resume(){this.returnToIsland();}
+  returnToIsland(){
+    this.dismiss();this.state.set('EXPLORATION');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();
+    this.mobile?.reset();this.player.velocity.set(0,0,0);this.clock.getDelta();this.interactions.update();this.mobile?.update();
+    window.focus();const canvas=$('#island');canvas.tabIndex=-1;canvas.focus({preventScroll:true});
+  }
   menu(){location.assign('/');}
   async preview(a){
     window.GameAudio?.play('enter');
@@ -63,7 +68,7 @@ export class Game {
     if(a.id==='target'){
       this.state.set('MINIGAME');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();$('#interaction').hidden=true;
       this.dialog('Shooting Range','',[]);
-      const leave=()=>{this.dismiss();this.state.set('EXPLORATION');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();};
+      const leave=()=>{this.returnToIsland();};
       try{
         const {ShootingBoothGame}=await import('../../games/shooting-range/ShootingBoothGame.js');
         if(this.state.is('MINIGAME')&&!$('#dialog').hidden){this.shooting=new ShootingBoothGame();this.shooting.open($('#dialog-fields'),leave,this.save.profiles);}
@@ -74,7 +79,7 @@ export class Game {
       this.state.set('MINIGAME');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();$('#interaction').hidden=true;
       this.dialog('Island Maze','',[]);
       const syncProgress=()=>{const p=this.save.profiles.profile;this.save.data.coins=p.coins;this.save.data.tickets=p.tickets;this.save.data.tokens=p.tokens;this.refreshHUD();};
-      const leave=()=>{syncProgress();this.dismiss();this.state.set('EXPLORATION');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();};
+      const leave=()=>{syncProgress();this.returnToIsland();};
       try{
         const {MazeBoothGame}=await import('../../games/maze/MazeBoothGame.js');
         if(this.state.is('MINIGAME')&&!$('#dialog').hidden){this.maze=new MazeBoothGame();this.maze.open($('#dialog-fields'),leave,syncProgress,this.save.profiles);}
@@ -85,7 +90,7 @@ export class Game {
       this.state.set('MINIGAME');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();$('#interaction').hidden=true;
       this.dialog('Basketball Shoot','',[]);
       const syncProgress=()=>{const p=this.save.profiles.profile;this.save.data.coins=p.coins;this.save.data.tickets=p.tickets;this.save.data.tokens=p.tokens;this.refreshHUD();};
-      const leave=()=>{syncProgress();this.dismiss();this.state.set('EXPLORATION');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();};
+      const leave=()=>{syncProgress();this.returnToIsland();};
       try{
         const {BasketballBoothGame}=await import('../../games/basketball/BasketballBoothGame.js');
         if(this.state.is('MINIGAME')&&!$('#dialog').hidden){this.basketball=new BasketballBoothGame();this.basketball.open($('#dialog-fields'),leave,syncProgress,this.save.profiles);}
@@ -95,7 +100,7 @@ export class Game {
     if(a.id==='memory'){
       this.state.set('MINIGAME');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();$('#interaction').hidden=true;
       this.dialog('Memory Tiles','',[]);
-      const leave=()=>{this.dismiss();this.state.set('EXPLORATION');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();};
+      const leave=()=>{this.returnToIsland();};
       try{
         const {MemoryTilesBoothGame}=await import('../../games/memory/MemoryTilesBoothGame.js');
         if(this.state.is('MINIGAME')&&!$('#dialog').hidden){this.memory=new MemoryTilesBoothGame();this.memory.open($('#dialog-fields'),leave);}
@@ -105,7 +110,7 @@ export class Game {
     if(a.id==='cans'){
       this.state.set('MINIGAME');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();$('#interaction').hidden=true;
       this.dialog('Can Knockdown','',[]);
-      const leave=()=>{this.dismiss();this.state.set('EXPLORATION');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();};
+      const leave=()=>{this.returnToIsland();};
       try{
         const {CanKnockdownBoothGame}=await import('../../games/cans/CanKnockdownBoothGame.js');
         if(this.state.is('MINIGAME')&&!$('#dialog').hidden){this.cans=new CanKnockdownBoothGame();this.cans.open($('#dialog-fields'),leave);}
@@ -115,7 +120,7 @@ export class Game {
     if(a.id==='pickleball'){
       this.state.set('MINIGAME');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();$('#interaction').hidden=true;
       this.dialog('Pickleball','',[]);
-      const leave=()=>{this.dismiss();this.state.set('EXPLORATION');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();};
+      const leave=()=>{this.returnToIsland();};
       try{
         const {PickleballBoothGame}=await import('../../games/pickleball/PickleballBoothGame.js');
         if(this.state.is('MINIGAME')&&!$('#dialog').hidden){this.pickleball=new PickleballBoothGame();this.pickleball.open($('#dialog-fields'),leave);}
@@ -125,7 +130,7 @@ export class Game {
     if(a.id==='chess'){
       this.state.set('MINIGAME');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();$('#interaction').hidden=true;
       this.dialog('Chess','',[]);
-      const leave=()=>{this.dismiss();this.state.set('EXPLORATION');this.input.keys.clear();this.input.drag=false;this.input.clearMotion();};
+      const leave=()=>{this.returnToIsland();};
       try{
         const {ChessBoothGame}=await import('../../games/chess/ChessBoothGame.js');
         if(this.state.is('MINIGAME')&&!$('#dialog').hidden){this.chess=new ChessBoothGame();this.chess.open($('#dialog-fields'),leave);}
@@ -142,6 +147,6 @@ export class Game {
   settings(){this.dialog('Settings','Master volume and Sound effects control island and mini-game sounds.',[['SAVE',()=>{this.save.save();this.resize();if(this.state.is('PAUSED'))this.pause();else this.dismiss();}],['BACK',()=>{if(this.state.is('PAUSED'))this.pause();else this.dismiss();}]]);const fields=$('#dialog-fields');for(const [key,label]of [['master','Master volume'],['music','Music volume'],['effects','Sound effects'],['sensitivity','Mouse sensitivity']]){const row=document.createElement('label');row.textContent=label;const range=document.createElement('input');range.type='range';range.min=key==='sensitivity'?.3:0;range.max=key==='sensitivity'?2:100;range.step=key==='sensitivity'?.1:1;range.value=this.save.data.settings[key];range.oninput=()=>{this.save.data.settings[key]=Number(range.value);window.GameAudio?.refresh();};row.append(range);fields.append(row);}const select=document.createElement('select');select.setAttribute('aria-label','Graphics quality');for(const label of['LOW','MEDIUM','HIGH'])select.add(new Option(label,label));select.value=this.save.data.settings.graphics;select.onchange=()=>this.save.data.settings.graphics=select.value;fields.append(select);}
   resize(){const quality=this.save.data.settings.graphics;this.renderer.setPixelRatio(Math.min(devicePixelRatio,matchMedia('(any-pointer: coarse)').matches?1.25:2,quality==='LOW'?1:quality==='HIGH'?2:1.5));this.renderer.shadowMap.enabled=quality!=='LOW';this.renderer.setSize(innerWidth,innerHeight);this.camera.aspect=innerWidth/innerHeight;this.camera.updateProjectionMatrix();}
   updateMiniMap(){const p=this.player.group.position,img=$('#map-button img'),x=T.MathUtils.clamp((p.x+30)/60,.08,.92),y=T.MathUtils.clamp((p.z+30)/60,.08,.92);img.style.left=`calc(50% - ${x*200}%)`;img.style.top=`calc(50% - ${y*200}%)`;}
-  frame(){requestAnimationFrame(()=>this.frame());const elapsed=this.clock.getDelta(),dt=Math.min(elapsed,.05);if(document.hidden)return;this.lighting.forEach(light=>light.update(Math.min(elapsed,.25)));this.mobile.update();if(!this.state.is('PAUSED')&&!this.state.is('MINIGAME')){this.time+=dt;this.world.update(this.time,dt);}if(this.state.is('MENU'))this.orbit.update();if(this.state.is('TRANSITION'))this.transitionFrame(dt);if(this.state.is('EXPLORATION')){this.player.update(dt,this.time);this.updateMiniMap();this.input.dx*=this.save.data.settings.sensitivity;this.input.dy*=this.save.data.settings.sensitivity;this.follow.update(dt);this.interactions.update();}window.IslandTime?.setExploring(this.state.is('EXPLORATION'));this.emotes.update(dt);if(!this.state.is('MINIGAME'))this.renderer.render(this.activeScene||this.menuScene,this.camera);if(!$('#debug').hidden)$('#debug').textContent='FPS '+Math.round(1/dt)+' | '+this.state.current+' | Player '+this.player.group.position.toArray().map(n=>n.toFixed(1)).join(', ')+' | Camera '+this.camera.position.toArray().map(n=>n.toFixed(1)).join(', ');}
+  frame(){requestAnimationFrame(()=>this.frame());const elapsed=this.clock.getDelta(),dt=Math.min(elapsed,.05);if(document.hidden)return;if(!this.state.is('MINIGAME'))this.lighting.forEach(light=>light.update(Math.min(elapsed,.25)));this.mobile.update();if(!this.state.is('PAUSED')&&!this.state.is('MINIGAME')){this.time+=dt;this.world.update(this.time,dt);}if(this.state.is('MENU'))this.orbit.update();if(this.state.is('TRANSITION'))this.transitionFrame(dt);if(this.state.is('EXPLORATION')){this.player.update(dt,this.time);this.updateMiniMap();this.input.dx*=this.save.data.settings.sensitivity;this.input.dy*=this.save.data.settings.sensitivity;this.follow.update(dt);this.interactions.update();}window.IslandTime?.setExploring(this.state.is('EXPLORATION'));this.emotes.update(dt);if(!this.state.is('MINIGAME'))this.renderer.render(this.activeScene||this.menuScene,this.camera);if(!$('#debug').hidden)$('#debug').textContent='FPS '+Math.round(1/dt)+' | '+this.state.current+' | Player '+this.player.group.position.toArray().map(n=>n.toFixed(1)).join(', ')+' | Camera '+this.camera.position.toArray().map(n=>n.toFixed(1)).join(', ');}
 }
 export const game = new Game();

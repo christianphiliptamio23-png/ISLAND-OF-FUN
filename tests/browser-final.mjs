@@ -21,6 +21,12 @@ try{
  await send('Emulation.setDeviceMetricsOverride',{width:844,height:390,deviceScaleFactor:1,mobile:true});await send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:2});await wait(300);
  assert.ok(await evaluate('!document.querySelector("#mobile-controls").hidden'));
  for(const selector of ['#move-stick','[data-touch="run"]','[data-touch="jump"]','.island-emotes summary'])assert.ok(await evaluate(`(()=>{const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1})()`),selector);
+ await evaluate('testGame.preview({id:"memory"})');await until('!!testGame.memory?.frame?.contentWindow?.MemoryTiles');
+ await evaluate('testGame.memory.exit()');assert.equal(await evaluate('testGame.mobile.enabled && !testGame.mobile.root.hidden'),true);
+ const stick=await evaluate('(()=>{const r=testGame.mobile.stick.getBoundingClientRect();return {x:r.left+r.width*.8,y:r.top+r.height*.5}})()');
+ await send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:stick.x,y:stick.y}]});
+ assert.ok(await evaluate('testGame.input.touchMove.x>.3'));await send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+ assert.equal(await evaluate('getComputedStyle(document.querySelector("#interaction")).display'), 'none');
  const screenshot=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync('.browser-test/final-phone.png',Buffer.from(screenshot.data,'base64'));
  }
  await send('Page.navigate',{url:base+'/games/pickleball/index.html'});await until('!!window.GameEconomy');await until('!!document.querySelector("[data-a=play]")');await evaluate('document.querySelector("[data-a=play]").click();document.querySelector("[data-a=go]").click()');await until('!document.querySelector("#hud").hidden');await wait(600);

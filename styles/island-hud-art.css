@@ -80,3 +80,6 @@ button:focus-visible,summary:focus-visible{outline:3px solid #fff0ab;outline-off
 }
 
 .emote-slot small{display:block;font-size:11px;margin-top:4px}.emote-slot:disabled{opacity:.55;cursor:not-allowed}
+
+.emote-load-status{position:fixed;left:50%;bottom:20%;transform:translateX(-50%);max-width:85vw;padding:10px 16px;margin:0;border:1px solid #e3c16d;border-radius:18px;background:#15372bf5;color:#fff2c5;font:600 14px system-ui;z-index:46;pointer-events:none;text-align:center}.emote-load-status:empty,.emote-load-status[hidden]{display:none}
+@media(any-pointer:coarse){#interaction{display:none!important}}

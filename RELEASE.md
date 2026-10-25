@@ -18,3 +18,5 @@ Node 20+ is supported. The server streams files, supports byte ranges, and block
 Browser tests use an isolated Chrome profile and never change the user's saved game. Physical phone performance still depends on the device. Existing graphics-quality options and reduced-motion support remain available.
 
 Movement now accepts stone steps up to 0.85 world units and gentler rock slopes, with narrower booth clearance. Water and tall obstacles remain blocked. Paid emotes cannot play without ownership, including direct playback calls.
+
+Return-to-island now resets touch capture and restores canvas focus immediately. Lighting pauses during mini-games and lantern placement runs once. Night lanterns have warm glow sprites; the moon is lower on the horizon. Phones show only the touch Explore control. Emotes reuse one character rig and compact animation files (73-608 KB), with visible first-load feedback. Original source animations remain available for rebuilding clips.

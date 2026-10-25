@@ -38,4 +38,6 @@ test('joystick supports simultaneous actions and resets when entering a booth',(
   state='MINIGAME';controls.update();assert.equal(controls.root.hidden,true);
   assert.deepEqual(game.input.touchMove,{x:0,y:0});assert.equal(game.input.touchRun,false);
   controls.root.querySelector('[data-touch="explore"]').onclick();assert.equal(visits,1);
+  state='EXPLORATION';controls.update();assert.equal(controls.enabled,true);assert.equal(controls.root.hidden,false);
+  controls.stick.emit('pointerdown',{pointerId:2,clientX:110,clientY:60,preventDefault(){}});assert.ok(game.input.touchMove.x>.8);
 });

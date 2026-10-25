@@ -23,11 +23,11 @@ export class MobileControls {
     document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset();});
     game.input.touchMove={x:0,y:0};
   }
-  release(){this.active=null;this.game.input.touchMove={x:0,y:0};this.knob.style.transform='';}
+  release(){const pointer=this.active;this.active=null;if(pointer!==null&&this.stick.hasPointerCapture?.(pointer))this.stick.releasePointerCapture(pointer);this.game.input.touchMove={x:0,y:0};this.knob.style.transform='';}
   reset(){this.release();this.run=false;this.game.input.touchRun=false;this.runButton.setAttribute('aria-pressed','false');this.game.input.clearMotion();}
   update(){
     const enabled=this.game.state.is('EXPLORATION');
-    if(enabled!==this.enabled){this.enabled=enabled;this.root.hidden=!enabled;if(!enabled)this.reset();}
-    if(enabled)this.root.querySelector('[data-touch="explore"]').disabled=!this.game.interactions.near;
+    if(enabled!==this.enabled){this.enabled=enabled;this.root.hidden=!enabled;this.reset();}
+    if(enabled){const button=this.root.querySelector('[data-touch="explore"]');button.disabled=!this.game.interactions.near;button.setAttribute('aria-label',this.game.interactions.near?'Explore '+this.game.interactions.near.name:'Explore nearby attraction');}
   }
 }
