@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Island of Fun – Can Knockdown</title>
-<style>html,body{margin:0;height:100%;background:#10243a;overflow:hidden}canvas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}</style><link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><link rel="stylesheet" href="../shared/minimal-wallet.css?v=1"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script></head>
+<style>html,body{margin:0;height:100%;background:#10243a;overflow:hidden}canvas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}</style><link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><link rel="stylesheet" href="../shared/minimal-wallet.css?v=1"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script><link rel="stylesheet" href="../shared/how-to-play.css"><script src="../shared/how-to-play.js"></script></head>
 <body><div id="economy-loading" role="status">Loading your carnival wallet?</div><canvas id="c"></canvas>
 <script>
 /* Matter.js: loads ./matter.min.js first (drop the file next to this HTML for offline use), then falls back to cdnjs. */
@@ -62,7 +62,7 @@ function mkApi(add){const reg=(b,k,w,h,hp)=>{b.k=k;b.w=w;b.h=h;if(hp)b.hp=hp;S.b
  tower:(x,n)=>{a.pk(x-45,GY-60,16,120);a.pk(x+45,GY-60,16,120);a.pk(x,GY-128,140,16);a.cans(x,GY-136,n>1?[-24,24]:[0])},
  house:x=>{a.pk(x-60,GY-60,16,120);a.pk(x+60,GY-60,16,120);a.pk(x,GY-128,180,16);a.can(x,GY-165);a.pk(x-60,GY-186,16,100);a.pk(x+60,GY-186,16,100);a.pk(x,GY-244,180,16);a.cr(x-80,GY-25,50);a.cans(x,GY-252,[-28,28])},
  mv:(x,top,w,A,sp)=>{const b=reg(Bodies.rectangle(x,top+12,w,24,{density:1,friction:1,frictionAir:0}),'mov',w,24);Body.setInertia(b,Infinity);S.movers.push({b,x0:x,y0:top+12,A,w:sp/A})}};return a}
-function loadLevel(i){if(window.GameEconomy&&!window.GameEconomy.enter(i+1,()=>loadLevel(i)))return;const L=LV[i];Composite.clear(E.world,false);
+function loadLevel(i){if(window.PlayGuide&&!window.PlayGuide.before(()=>loadLevel(i)))return;if(window.GameEconomy&&!window.GameEconomy.enter(i+1,()=>loadLevel(i)))return;const L=LV[i];Composite.clear(E.world,false);
  S={lv:i,balls:L.b,total:L.b,score:0,cans:[],bodies:[],movers:[],ball:null,ph:'look',pt:0,won:0,wt:0,parts:[],trail:[],intro:3.2,warm:1,sleepT:0,over:0};
  const add=b=>Composite.add(E.world,b);
  add(Bodies.rectangle(WW/2,GY+60,WW+1600,120,{isStatic:true,friction:1}));add(Bodies.rectangle(-80,0,160,4000,{isStatic:true}));add(Bodies.rectangle(WW+80,0,160,4000,{isStatic:true}));

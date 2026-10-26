@@ -61,7 +61,7 @@ p{margin:.4em 0}
 @media(prefers-reduced-motion:reduce){*{transition-duration:.01s!important;animation-duration:.01s!important}.sp{display:none}}
 </style>
 <link rel="stylesheet" href="./asset-theme.css">
-<link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script></head>
+<link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script><link rel="stylesheet" href="../shared/how-to-play.css"><script src="../shared/how-to-play.js"></script></head>
 <body><div id="economy-loading" role="status">Loading your carnival wallet?</div>
 
 <section class="screen active" id="s-title"><div class="panel">
@@ -207,7 +207,7 @@ function pickTiles(n){ // use 16 distinct symbols first, then repeat symbols in 
  const seen=new Set(),first=[],rest=[];
  shuffle(TILES.slice()).forEach(t=>{const si=t.key.split('-')[0];if(seen.has(si))rest.push(t);else{seen.add(si);first.push(t)}});
  return first.concat(rest).slice(0,n)}
-function startAttempt(i){if(window.GameEconomy&&!window.GameEconomy.enter(i+1,()=>startAttempt(i)))return;
+function startAttempt(i){if(window.PlayGuide&&!window.PlayGuide.before(()=>startAttempt(i)))return;if(window.GameEconomy&&!window.GameEconomy.enter(i+1,()=>startAttempt(i)))return;
  cancelAll();
  const L=LEVELS[i],pool=pickTiles(L.pairs),deck=shuffle(pool.concat(pool)); // single shuffle per attempt
  G={state:'preview',cards:[],i,L,moves:0,pairs:0,first:null,prev:null};

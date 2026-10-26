@@ -1,6 +1,7 @@
 export class MobileControls {
   constructor(game){
     this.game=game;
+    this.touchPointer=matchMedia('(pointer: coarse)');
     this.root=document.createElement('div');this.root.id='mobile-controls';this.root.hidden=true;
     this.root.innerHTML='<div id="move-stick" role="group" aria-label="Drag to walk"><span class="stick-knob"></span><i class="stick-label" aria-hidden="true">MOVE</i></div><div class="touch-actions"><button data-touch="run" aria-label="Toggle run" aria-pressed="false"><span class="control-glyph run-glyph" aria-hidden="true"></span><span>RUN</span></button><button data-touch="jump" aria-label="Jump"><span class="control-glyph jump-glyph" aria-hidden="true"></span><span>JUMP</span></button><button data-touch="explore" aria-label="Explore nearby attraction"><span class="control-glyph explore-glyph" aria-hidden="true"></span><span>EXPLORE</span></button></div>';
     document.body.append(this.root);
@@ -26,7 +27,7 @@ export class MobileControls {
   release(){const pointer=this.active;this.active=null;if(pointer!==null&&this.stick.hasPointerCapture?.(pointer))this.stick.releasePointerCapture(pointer);this.game.input.touchMove={x:0,y:0};this.knob.style.transform='';}
   reset(){this.release();this.run=false;this.game.input.touchRun=false;this.runButton.setAttribute('aria-pressed','false');this.game.input.clearMotion();}
   update(){
-    const enabled=this.game.state.is('EXPLORATION');
+    const enabled=this.touchPointer.matches&&this.game.state.is('EXPLORATION');
     if(enabled!==this.enabled){this.enabled=enabled;this.root.hidden=!enabled;this.reset();}
     if(enabled){const button=this.root.querySelector('[data-touch="explore"]');button.disabled=!this.game.interactions.near;button.setAttribute('aria-label',this.game.interactions.near?'Explore '+this.game.interactions.near.name:'Explore nearby attraction');}
   }

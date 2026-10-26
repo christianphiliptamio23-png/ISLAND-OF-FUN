@@ -1,0 +1,30 @@
+/* Instructions appear on every booth visit, before any attempt can begin. */
+(()=>{
+ const touch=matchMedia('(pointer: coarse)');
+ const games={
+ chess:['Chess','♞','#bce0a3','Checkmate the computer’s king.',['Choose your side and difficulty before starting.','Select your piece, then a legal destination. Take turns with the computer.','Protect your king and trap the opposing king with no legal escape.'],[['Click / drag','Select and move a piece'],['Hint / Undo','Use the board buttons']],[['Tap piece → square','Select and move a piece'],['Hint / Undo','Use the board buttons']],'Pawns move forward and capture diagonally. Rooks move straight, bishops diagonally, knights in an L, queens in both directions, and kings one square.'],
+ memory:['Memory Tiles','▦','#f7b2d5','Find every matching pair within the move limit.',['Watch the opening preview and remember the symbols.','Reveal two tiles. Matches stay visible; mismatches turn back over.','Match the whole board. Each pair of selections uses one move.'],[['Click','Reveal a tile'],['Pause button','Pause the game']],[['Tap','Reveal a tile'],['Pause button','Pause the game']],'Remember the positions of mismatches to help find your next pair.'],
+ basketball:['Basketball','◉','#ffc27c','Reach the target score before you run out of balls.',['Press and hold on the court to begin aiming.','Pull back opposite your shot. A longer drag gives more power.','Release to shoot. Watch the ball and adjust your next attempt.'],[['Hold + drag','Set direction and power'],['Release','Shoot'],['Esc / Pause','Pause the round']],[['Touch + drag','Set direction and power'],['Lift finger','Shoot'],['Pause button','Pause the round']],'Use the trajectory preview to line up your shot.'],
+ cans:['Can Knockdown','▥','#ffb49a','Knock down all the cans with your limited balls.',['Wait for the camera to return to the throwing position.','Grab the ball and pull it back. Use the dotted path to aim.','Release to throw, then let the cans settle before your next shot.'],[['Drag the ball','Aim and charge'],['Release','Throw'],['Pause button','Pause the round']],[['Pull the ball back','Aim and charge'],['Lift finger','Throw'],['Pause button','Pause the round']],'Aim low in the stack to bring down several cans with one throw.'],
+ 'shooting-range':['Shooting Range','◎','#ffe28a','Reach the hit goal before your ammo runs out.',['Check the required hits and remaining ammo at the top.','Aim at visible targets. Watch moving targets and obstacles.','Make each shot count: misses still use ammunition.'],[['Move mouse','Aim'],['Left click','Fire one shot'],['Esc / Pause','Pause the round']],[['Tap a target','Aim and fire'],['Pause button','Pause the round']],'Wait for a clear shot instead of firing at a blocked target.'],
+ maze:['Maze Adventure','◈','#cbb8ff','Find the green exit and collect stars along the way.',['Explore in first person. Collect up to three gold stars.','Open the map to check your position, stars, guards, and exit. Close it to keep walking.','Avoid the guards and find a route to the green exit.'],[['W / S or ↑ / ↓','Walk forward / backward'],['A / D','Sidestep'],['Q / E or ← / →','Turn; or drag the view'],['M / Map','Open or close the map']],[['Left joystick','Walk and sidestep'],['Drag the view','Turn'],['Map button','Open or close the map']],'The blue arrow on the map shows your position and direction.'],
+ pickleball:['Pickleball','◒','#dcf58a','Be first to 11 points, winning by at least two.',['Serve diagonally from behind the baseline. Hold and release Hit to serve.','Let the serve and return each bounce once. Then you may volley outside the kitchen.','Only the server scores. Win a rally as receiver to earn the serve.'],[['WASD / arrows','Move'],['Hold Space → release','Charge and hit; tap near net to dink'],['Q / E','Lob / smash'],['Hold Shift','Sprint'],['Mouse / left-right','Aim'],['P / Esc','Pause']],[['Left joystick','Move and guide your aim'],['Hold HIT → release','Charge and hit'],['LOB / SMASH','Special shots'],['Hold RUN','Sprint'],['Pause button','Pause']],'The kitchen is the area beside the net. Let the ball bounce before hitting from inside it.']
+ };
+ const key=location.pathname.split('/').filter(Boolean).at(-2),data=games[key];
+ if(!data)return;
+ let accepted=false,dialog,pending=null;
+ function show(){
+  if(accepted||dialog?.open)return;
+  const [name,icon,color,goal,steps,desktop,mobile,tip]=data;
+  dialog=document.createElement('dialog');dialog.className='play-guide';dialog.style.setProperty('--guide-accent',color);
+  dialog.setAttribute('aria-labelledby','guide-title');dialog.setAttribute('aria-describedby','guide-goal');
+  dialog.innerHTML=`<header class="guide-header"><span class="guide-icon" aria-hidden="true">${icon}</span><div><p class="guide-eyebrow">ISLAND OF FUN · HOW TO PLAY</p><h1 id="guide-title">${name}</h1></div></header><p id="guide-goal">${goal}</p><div class="guide-columns"><section><h2>Your game plan</h2><ol>${steps.map(s=>`<li>${s}</li>`).join('')}</ol></section><section class="guide-controls"><h2>Your controls <span>${touch.matches?'Touch':'Keyboard & mouse'}</span></h2><dl>${(touch.matches?mobile:desktop).map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join('')}</dl></section></div><aside class="guide-tip"><strong>Island tip</strong><p>${tip}</p></aside><footer><span>Take your time. The game waits for you.</span><button type="button" class="guide-start">Got it · Let’s play →</button></footer>`;
+  dialog.addEventListener('cancel',e=>e.preventDefault());
+  for(const type of ['keydown','keyup'])dialog.addEventListener(type,e=>e.stopPropagation());
+  dialog.querySelector('button').onclick=()=>{accepted=true;dialog.close();dialog.remove();const next=pending;pending=null;next?.();};
+  const heading=dialog.querySelector('h1');heading.tabIndex=-1;heading.autofocus=true;
+  document.body.append(dialog);dialog.showModal();heading.focus({preventScroll:true});dialog.scrollTop=0;
+ }
+ window.PlayGuide={before(next){if(accepted)return true;pending=next;show();return false;}};
+ document.addEventListener('DOMContentLoaded',show,{once:true});
+})();

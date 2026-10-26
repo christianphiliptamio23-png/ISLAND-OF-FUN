@@ -29,3 +29,6 @@ canvas#island{height:100dvh}
  .ui .play{bottom:14cqh;font-size:9cqw;padding:12px 45px}.ui .small-bottom{bottom:5cqh;gap:6px}.ui .small-bottom.l{left:3cqw}.ui .small-bottom.r{right:3cqw}
  .island-spot{width:90%;top:55%}.menu-panel{width:92cqw;max-height:85cqh;font-size:15px}.menu-panel h2{font-size:24px}
 }
+
+#mobile-controls[hidden]{display:none!important}
+@media not all and (pointer:coarse){#mobile-controls{display:none!important}}

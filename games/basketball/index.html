@@ -24,7 +24,7 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
 .g{display:grid;grid-template-columns:repeat(5,5em);gap:.7em;justify-content:center;margin:1em 0}
 .lv{font-size:2.2em;height:2.4em;padding:0}
 .lv:disabled{background:#4d7c82;border-color:#37595d;box-shadow:none;opacity:.7;cursor:default}
-</style><link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><link rel="stylesheet" href="../shared/minimal-wallet.css?v=1"><link rel="stylesheet" href="./hud.css?v=5"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script></head><body><div id="economy-loading" role="status">Loading your carnival wallet?</div>
+</style><link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><link rel="stylesheet" href="../shared/minimal-wallet.css?v=1"><link rel="stylesheet" href="./hud.css?v=5"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script><link rel="stylesheet" href="../shared/how-to-play.css"><script src="../shared/how-to-play.js"></script></head><body><div id="economy-loading" role="status">Loading your carnival wallet?</div>
 <div id="stage"><canvas id="c" width="1280" height="720"></canvas>
 <div id="hud" hidden>
  <div id="top"><button class="b" data-a="exit">&#8249; Back</button><div id="sg">BASKETBALL SHOOT</div>
@@ -127,7 +127,7 @@ function title(){L=null;paused=false;mode='title';hud.hidden=true;
 function levels(){L=null;paused=false;mode='levels';hud.hidden=true;let h='';
  LEVELS.forEach((_,i)=>{const ok=window.GameEconomy?window.GameEconomy.canSelect(i+1):i<save.u;h+=`<button class=lv data-a=L${i} ${ok?'':'disabled'}>${ok?i+1:'&#128274;'}<span class="economy-level-label">${window.GameEconomy?.label(i+1)||''}</span></button>`});
  setScr(`<div class=pn><h1 style="font-size:2.6em">SELECT LEVEL</h1><div class=g>${h}</div><button class=b data-a=title>&#8249; Title</button></div>`)}
-function start(i){if(window.GameEconomy&&!window.GameEconomy.enter(i+1,()=>start(i)))return;L=newLevel(i);paused=false;aim=null;lastShot=null;fx=[];tx=[];acc=0;mode='play';hud.hidden=false;setScr('')}
+function start(i){if(window.PlayGuide&&!window.PlayGuide.before(()=>start(i)))return;if(window.GameEconomy&&!window.GameEconomy.enter(i+1,()=>start(i)))return;L=newLevel(i);paused=false;aim=null;lastShot=null;fx=[];tx=[];acc=0;mode='play';hud.hidden=false;setScr('')}
 function pause(){if(mode==='play'&&!paused){paused=true;aim=null;setScr(`<div class=pn><h1>PAUSED</h1><button class=b data-a=resume>&#9654; Resume</button><button class=b data-a=ticket>Use Retry Ticket</button><button class=b data-a=restart>&#8635; Restart</button><button class=b data-a=levels>Levels</button></div>`)}}
 function resume(){if(paused){paused=false;last=performance.now();setScr('')}}
 function exit(){if(hasExit())window.BasketballShoot.onExit();else title()}

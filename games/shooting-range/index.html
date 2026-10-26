@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Island of Fun – Shooting Range</title>
-<style>html,body{margin:0;height:100%;background:#10243a;overflow:hidden}canvas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}</style><link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script></head>
+<style>html,body{margin:0;height:100%;background:#10243a;overflow:hidden}canvas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}</style><link rel="stylesheet" href="../shared/polish.css"><script defer src="../shared/polish.js"></script><link rel="stylesheet" href="../shared/economy.css"><script src="../shared/economy-boot.js"></script><script type="module" src="../shared/economy-bridge.js"></script><script src="../shared/audio.js"></script><link rel="stylesheet" href="../shared/how-to-play.css"><script src="../shared/how-to-play.js"></script></head>
 <body><div id="economy-loading" role="status">Loading your carnival wallet?</div><canvas id="c"></canvas>
 <script>
 (()=>{'use strict';
@@ -105,7 +105,7 @@ function pos(s,t){const w=s.v/(s.A||1);switch(s.m){
 function inside(s,x,y){if(s.clip&&y>=s.clip)return false;const dx=x-s.p[0],dy=y-s.p[1];
  if(s.m==='b')return dx*dx/(s.r*s.r*.7225)+dy*dy/(s.r*s.r)<=1;
  if(s.k==='s')return pip(star(s.p[0],s.p[1],s.r*1.05),x,y);return dx*dx+dy*dy<=s.r*s.r}
-const openLevel=i=>{if(window.GameEconomy&&!window.GameEconomy.enter(i+1,()=>openLevel(i)))return;S=mkLevel(i);scr='card'};
+const openLevel=i=>{if(window.PlayGuide&&!window.PlayGuide.before(()=>openLevel(i)))return;if(window.GameEconomy&&!window.GameEconomy.enter(i+1,()=>openLevel(i)))return;S=mkLevel(i);scr='card'};
 const restart=()=>{if(window.GameEconomy&&!window.GameEconomy.enter(S.lv+1,()=>restart()))return;S=mkLevel(S.lv);lastShot=-1e3;scr='play'};
 function shoot(x,y){if(scr!=='play'||!S||S.over||now-lastShot<250)return;const before=structuredClone(S);lastShot=now;S.ammo--;S.shots++;rec=1;fl=.09;snd('shot');
  let r='miss',hit=null;
